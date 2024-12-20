@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour{
     // 入れ替えスキルの発動
     private void HandleReplacement(){
         if(Input.GetMouseButtonDown(1) && isTarget){
+            targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
             targetingEnemy.transform.position = this.transform.position;
             this.transform.position = enemyPosition;
@@ -97,11 +98,10 @@ public class PlayerController : MonoBehaviour{
     }
     // 敵との接触判定
     private void OnCollisionEnter2D(Collision2D collision){
-        Debug.Log("ok");
         if(collision.gameObject.CompareTag("Enemy")){
             // animator.SetTrigger(isDamage);
             // StartCoroutine(MoveLock(defeatMoveLockDuration));
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            // Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             playerHp -= 1; // 仮実装
         }
     }
