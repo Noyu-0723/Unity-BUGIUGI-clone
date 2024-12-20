@@ -22,8 +22,8 @@ public class Enemy : MonoBehaviour
     public bool isTargeting = false;
 
     // ‚Æ‚è‚ ‚¦‚¸private
-    private int hp = 1;
-    private float speed = 1.0f;
+    protected int hp = 1;
+    protected float speed = 1.0f;
     //private float attack = 1.0f;
 
     protected Rigidbody2D m_rig;
