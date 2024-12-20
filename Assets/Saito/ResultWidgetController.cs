@@ -35,7 +35,7 @@ public class ResultWidgetController : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    private void View(bool isClear)
+    public void View(bool isClear)
     {
         _resultWidget.SetView(isClear);
         
