@@ -268,7 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b93d38af4dbad141bdee4fbff50031b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
+  m_target_mark: {fileID: 0}
+  m_question_mark: {fileID: 0}
   isTargeting: 0
 --- !u!4 &229164320
 Transform:
@@ -844,7 +845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b93d38af4dbad141bdee4fbff50031b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
+  m_target_mark: {fileID: 0}
+  m_question_mark: {fileID: 0}
   isTargeting: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

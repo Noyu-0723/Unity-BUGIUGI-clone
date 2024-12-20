@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-	#region –î“‡
+	#region ï¿½î“‡
 
-	// ƒCƒ“ƒXƒ^ƒ“ƒX‰»
+	// ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½
 	public static GameController instance { get; private set; }
 
     [SerializeField]
@@ -15,11 +15,15 @@ public class GameController : MonoBehaviour
     private bool isGameStart;
     private bool isGameClear;
     private bool isGameOver;
+    public AudioSource titleBGM;
+    public AudioSource inGameBGM;
+    public AudioSource resultBGM;
+    public AudioSource nowBGM;
 
     public int Remaining_Time
     {
-        set { remaining_time = value; } //’l‚Ì‘ã“ü
-        get { return remaining_time; } //ŠO•”‚É’l‚ğ•Ô‚·
+        set { remaining_time = value; } //ï¿½lï¿½Ì‘ï¿½ï¿½
+        get { return remaining_time; } //ï¿½Oï¿½ï¿½ï¿½É’lï¿½ï¿½Ô‚ï¿½
     }
 
 	#endregion
@@ -34,6 +38,7 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
+        StartMusic(titleBGM);
         isGameStart = false;
         isGameClear = false;
         isGameOver = false;
@@ -41,7 +46,8 @@ public class GameController : MonoBehaviour
 
 	public void GameStart()
 	{
-
+        StopMusic();
+        StartMusic(inGameBGM);
 	}
 
     public void SpawnEnemy()
@@ -51,7 +57,8 @@ public class GameController : MonoBehaviour
 
     public void GameClear()
     {
-
+        StopMusic();
+        StartMusic(resultBGM);
     }
 
     public void GameOver()
@@ -59,14 +66,29 @@ public class GameController : MonoBehaviour
 
     }
 
-    // ƒQ[ƒ€I—¹ŠÖ”
+    // ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Öï¿½
     public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        //‚±‚ÌƒR[ƒh‚Åƒrƒ‹ƒh‚µ‚½ƒQ[ƒ€‚ğI—¹‚·‚é‚±‚Æ‚ª‚Å‚«‚é
+        //ï¿½ï¿½ï¿½ÌƒRï¿½[ï¿½hï¿½Åƒrï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
         Application.Quit();
 #endif
+    }
+
+    // BGMã‚’å†ç”Ÿ
+    public void StartMusic(AudioSource audio){
+        nowBGM = audio;
+        nowBGM.volume = 0.3f;
+        nowBGM.loop = true;
+        nowBGM.Play();
+    }
+
+    // BGMã‚’ã‚¹ãƒˆãƒƒãƒ—
+    public void StopMusic(){
+        if(nowBGM != null){
+            nowBGM.Stop();
+        }
     }
 }
