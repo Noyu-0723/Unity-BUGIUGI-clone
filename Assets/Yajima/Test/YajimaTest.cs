@@ -12,10 +12,4 @@ public class YajimaTest : MonoBehaviour
         num = GameController.instance.Remaining_Time;
         Debug.Log(num);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
