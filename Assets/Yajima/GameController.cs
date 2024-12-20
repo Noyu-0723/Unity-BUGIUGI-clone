@@ -80,7 +80,6 @@ public class GameController : MonoBehaviour
     // BGMを再生
     public void StartMusic(AudioSource audio){
         nowBGM = audio;
-        nowBGM.volume = 0.3f;
         nowBGM.loop = true;
         nowBGM.Play();
     }
