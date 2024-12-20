@@ -5,42 +5,49 @@ using UnityEngine;
 
 /* メモ
  * ・最初はdisableにしてinstantiate, OnEnableで動き始めるようにする
- * 
+ * ・Playerとのやりとり
+ * 　・bool Targeting()    // ターゲットするときに呼び出す
+ * 　・void TakeDamage()    // プレイヤーが攻撃アクションをした時に呼び出す
+ * 　・void PositionChanged()    // プレイヤーとの座標の入れ替えが起こった時に呼び出す
  * */
 
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Camera m_camera;
+    [SerializeField] protected GameObject m_target_mark;
+    [SerializeField] protected GameObject m_question_mark;
+    private float question_mark_time = 2.0f;
+
+    protected Camera m_camera;
+    public bool isTargeting = false;
 
     // とりあえずprivate
     private int hp = 1;
     private float speed = 1.0f;
     private float attack = 1.0f;
 
-
-    // Trueの間ターゲットされているマークを表示するようにする
-    public bool isTargeting = false;
-
-    private bool isAttacked = false;    // trueの間敵と衝突してもAttackPlayerを呼ばない
-    private Rigidbody2D m_rig;
+    protected Rigidbody2D m_rig;
 
 
     private void OnEnable()
     {
+        m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();//Camera.current;
+        m_rig = this.GetComponent<Rigidbody2D>();
         Spawn();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_rig = this.GetComponent<Rigidbody2D>();
+        // do nothing
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        Targeting();
+        Debug.Log("hello");
     }
 
     // オブジェクトを生成したときの処理
@@ -52,7 +59,7 @@ public class Enemy : MonoBehaviour
         m_rig.transform.position = spawnPosition;
     }
 
-    private void Move()
+    protected virtual void Move()
     {
         // ひとまず座標を直接更新する方式にする
         m_rig.position += new Vector2(-speed * Time.deltaTime, 0);
@@ -62,7 +69,7 @@ public class Enemy : MonoBehaviour
     // プレイヤー側からの被ダメはプレイヤー自身で完結するため、アタックのモーションだけ実行する
     private void AttackPlayer()
     {
-        // 攻撃のアニメーション
+        // 攻撃のアニメーションを実行
     }
 
     // 城に攻撃する
@@ -70,6 +77,21 @@ public class Enemy : MonoBehaviour
     {
         // 城に衝突
         // ゲームオーバーにする？
+    }
+
+    private void Dead()
+    {
+        //  死んだときの動作をここに書く
+
+        // とりあえずGameObjectを削除
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator SetQuestionMark()
+    {
+        m_question_mark.SetActive(true);
+        yield return new WaitForSeconds(question_mark_time);
+        m_question_mark.SetActive(false);
     }
 
     // プレイヤーからのダメージを受ける（Playerから呼び出し）
@@ -83,19 +105,31 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Dead()
+    // ターゲットされた時に呼ばれる
+    public void Targeting()
     {
-        //  死んだときの動作をここに書く
-
-        // とりあえずGameObjectを削除
-        Destroy(this.gameObject);
+        if (isTargeting && !m_target_mark.activeSelf)
+        {
+            m_target_mark.SetActive(true);
+        }
+        else if (!isTargeting && m_target_mark.activeSelf)
+        {
+            m_target_mark.SetActive(false);
+        }
     }
+
+    public void PositionChanged()
+    {
+        // 座標が入れ替わった時のはてなマーク
+        StartCoroutine("SetQuestionMark");
+    }
+
+
 
     // 衝突相手の判定はTagで
     // Player or Castle
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        // 衝突時の動作
 
         GameObject opponent = collision.gameObject;    // 衝突相手を取得
         Collider2D other = opponent.GetComponent<Collider2D>();
@@ -110,3 +144,4 @@ public class Enemy : MonoBehaviour
         }
     }
 }
+
