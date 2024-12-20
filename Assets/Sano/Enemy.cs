@@ -6,7 +6,7 @@ using UnityEngine;
 /* メモ
  * ・最初はdisableにしてinstantiate, OnEnableで動き始めるようにする
  * ・Playerとのやりとり
- * 　・bool Targeting()    // ターゲットするときに呼び出す
+ * 　・isTargeting    // ターゲットするときに呼び出す
  * 　・void TakeDamage()    // プレイヤーが攻撃アクションをした時に呼び出す
  * 　・void PositionChanged()    // プレイヤーとの座標の入れ替えが起こった時に呼び出す
  * */
