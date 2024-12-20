@@ -9,7 +9,10 @@ public class Dragon : Enemy
     protected override void Move()
     {
         // ê≥å∑îgÇÃÇÊÇ§Ç…ìÆÇ≠
-        Mathf.PingPong(Time.time, 0.3f);
+
+        //Mathf.PingPong(Time.time, 0.3f);
+
+
     }
 
     protected override void Spawn()
