@@ -47,7 +47,6 @@ public class Enemy : MonoBehaviour
     {
         Move();
         Targeting();
-        Debug.Log("hello");
     }
 
     // オブジェクトを生成したときの処理
