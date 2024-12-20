@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
 
     public int hp = 1;
     public float speed = 1.0f;
+    public float attack = 1.0f;
+
+    public bool isTargeting = false;
 
     private Rigidbody2D m_rig;
 
