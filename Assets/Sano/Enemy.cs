@@ -70,6 +70,7 @@ public class Enemy : MonoBehaviour
     private void AttackPlayer()
     {
         // 攻撃のアニメーションを実行
+        Dead();    // 一旦deadにする
     }
 
     // 城に攻撃する
