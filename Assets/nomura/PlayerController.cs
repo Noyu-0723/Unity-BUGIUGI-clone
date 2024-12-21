@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour{
     // 入れ替えスキルの発動
     private void HandleReplacement(){
         if(Input.GetMouseButtonDown(1) && isTarget){
+            replaceSE.Play();
             targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
             targetingEnemy.transform.position = this.transform.position;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour{
     private void HandleCheckDeath(){
         if(playerHp <= 0){
             // animator.play("Defeat");
+            defeatSE.Play();
             StartCoroutine(MoveLock(defeatMoveLockDuration));
             StartCoroutine(Respawn(defeatMoveLockDuration));
         }
@@ -147,6 +149,7 @@ public class PlayerController : MonoBehaviour{
     // 通常攻撃の判定処理
     IEnumerator NormalAttack(){
         yield return new WaitForSeconds(0.1f);
+        attackSE.Play();
         normalAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         normalAttackCollider2D.gameObject.SetActive(false);
@@ -154,6 +157,7 @@ public class PlayerController : MonoBehaviour{
     // 落下攻撃の判定処理
     IEnumerator AirAttack(){
         yield return new WaitForSeconds(0.1f);
+        explosionSE.Play();
         airAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         airAttackCollider2D.gameObject.SetActive(false);
