@@ -19,11 +19,12 @@ public class PlayerController : MonoBehaviour{
     public AudioSource replaceSE; // 入れ替わり時のSE
     public AudioSource explosionSE; // 落下攻撃時のSE
     public bool canMove = true; // 移動可能なのかどうか
+    public bool isReplacementable = true; // 入れ替え可能なのかどうか
     public bool isTarget = false; // 敵をターゲティングしているのかどうか
     public bool isGrounded = false; // 地面と接しているのかどうか
     public float movementSpeed = 5f; // 移動速度
     public float attackMoveLockDuration = 0.8f; // 攻撃モーション中に動けないフレーム
-    public float defeatMoveLockDuration = 3.0f; // 死亡モーション中に動けないフレーム
+    public float defeatMoveLockDuration = 1.417f; // 死亡モーション中に動けないフレーム
     public float replacementCooldown = 5.0f; // 入れ替えスキルのクールダウン
     void Start(){
         playerHp = playerMaxHp;
@@ -58,7 +59,10 @@ public class PlayerController : MonoBehaviour{
             animator.SetBool("isWalking", true);
             myPosition.x -= movementSpeed * Time.deltaTime;
         }
-        if(!isGrounded && rb.velocity.y < 0){
+        if(isGrounded && !isPressingRight && !isPressingLeft){
+            animator.SetBool("isWalking", false);
+        }
+        else if(!isGrounded && rb.velocity.y < 0){
             animator.SetBool("isWalking", false);
             // animator.SetBool("isFalling", true);
         }else{
@@ -69,34 +73,34 @@ public class PlayerController : MonoBehaviour{
     // 敵のターゲティング
     private void HandleEnemyTarget(){
         if(Input.GetMouseButtonDown(0)){
+            if(targetingEnemy != null) targetingEnemy.isTargeting = false; // 敵のターゲットをリセット
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Collider2D hitCollider = Physics2D.OverlapCircle(mousePosition, 0.1f);
             if(hitCollider != null && hitCollider.CompareTag("Enemy")){
                 targetingEnemy = hitCollider.GetComponent<Enemy>();
-                if(targetingEnemy != null){
-                    isTarget = true;
-                    targetingEnemy.isTargeting = true;
-                }
+                isTarget = true;
+                targetingEnemy.isTargeting = true;
             }else{
                 isTarget = false;
-                targetingEnemy.isTargeting = false;
             }
         }
     }
     // 入れ替えスキルの発動
     private void HandleReplacement(){
+        if(!isReplacementable) return;
         if(Input.GetMouseButtonDown(1) && isTarget){
             replaceSE.Play();
             targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
             targetingEnemy.transform.position = this.transform.position;
             this.transform.position = enemyPosition;
+            StartCoroutine(SkillLock(replacementCooldown));
         }
     }
     // 通常攻撃
     private void HandleAttack(){
         if(Input.GetKeyDown(KeyCode.Space)){
-            // animator.play("Attack");
+            animator.Play("Attack");
             StartCoroutine(MoveLock(attackMoveLockDuration));
             StartCoroutine(NormalAttack());
         }
@@ -104,7 +108,7 @@ public class PlayerController : MonoBehaviour{
     // 死亡判定
     private void HandleCheckDeath(){
         if(playerHp <= 0){
-            // animator.play("Defeat");
+            animator.Play("Die");
             defeatSE.Play();
             StartCoroutine(MoveLock(defeatMoveLockDuration));
             StartCoroutine(Respawn(defeatMoveLockDuration));
@@ -120,7 +124,6 @@ public class PlayerController : MonoBehaviour{
             }else{
                 StartCoroutine(AirAttack());
             }
-            
         }
     }
     // 接地判定
@@ -141,12 +144,17 @@ public class PlayerController : MonoBehaviour{
         yield return new WaitForSeconds(duration);
         canMove = true;
     }
+    IEnumerator SkillLock(float duration){
+        isReplacementable = false;
+        yield return new WaitForSeconds(duration);
+        isReplacementable = true;
+    }
     // リスポーン
     IEnumerator Respawn(float duration){
         yield return new WaitForSeconds(duration);
-        // animator.play("Respawn");
         playerHp = playerMaxHp;
         this.transform.position = respawnPosition;
+        animator.Play("Stand");
     }
     // 通常攻撃の判定処理
     IEnumerator NormalAttack(){
