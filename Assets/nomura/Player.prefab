@@ -188,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 2953788445206194773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c73668913e6efb4485ec7dfc693c876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPosition: {x: -7.5, y: 0}
+  respawnPosition: {x: -7.5, y: -2}
   targetingEnemy: {fileID: 0}
   normalAttackRightCollider2D: {fileID: 8434807897732989502}
   normalAttackLeftCollider2D: {fileID: 3913370447378238660}
@@ -229,6 +229,7 @@ MonoBehaviour:
   movementSpeed: 5
   attackMoveLockBeforeDuration: 0.8
   attackMoveLockAfterDuration: 0.617
+  airAttackMoveLockBeforeDuration: 0
   defeatMoveLockDuration: 3
   replacementCooldown: 2
 --- !u!50 &1464848580051641073
