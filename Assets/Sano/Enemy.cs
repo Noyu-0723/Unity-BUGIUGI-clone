@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
 
     protected Rigidbody2D m_rig;
 
+    [SerializeField] private bool _tmp_isPositionChanged = false;
+
 
     private void OnEnable()
     {
@@ -47,6 +49,13 @@ public class Enemy : MonoBehaviour
     {
         Move();
         Targeting();
+
+        // 以下デバッグ用
+        if (_tmp_isPositionChanged)
+        {
+            PositionChanged();
+            _tmp_isPositionChanged = false;
+        }
     }
 
     // オブジェクトを生成したときの処理
@@ -89,8 +98,12 @@ public class Enemy : MonoBehaviour
 
     IEnumerator SetQuestionMark()
     {
+        Debug.Log("test");
         m_question_mark.SetActive(true);
+        float tmp_speed = this.speed;
+        this.speed = 0.0f;
         yield return new WaitForSeconds(question_mark_time);
+        this.speed = tmp_speed;
         m_question_mark.SetActive(false);
     }
 
@@ -118,7 +131,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void PositionChanged()
+    public virtual void PositionChanged()
     {
         // 座標が入れ替わった時のはてなマーク
         StartCoroutine("SetQuestionMark");
