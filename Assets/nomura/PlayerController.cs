@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
     private int playerMaxHp = 1;
     private int playerHp;
-    private int playerAttack;
+    private int playerAttack; 
     private Rigidbody2D rb;
     private Collider2D playerCollider2D;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     public Vector2 respawnPosition; // リスポーン地点
     public Enemy targetingEnemy = null; // 現在ターゲティングしている敵
     public Collider2D normalAttackCollider2D; // 通常攻撃のコリジョン
@@ -29,7 +30,8 @@ public class PlayerController : MonoBehaviour{
         playerAttack = 1;
         rb = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
-        // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update(){
         if(canMove && isGrounded){
@@ -47,17 +49,17 @@ public class PlayerController : MonoBehaviour{
         bool isPressingLeft = Input.GetKey(KeyCode.A);
         bool isPressingRight = Input.GetKey(KeyCode.D);
         if(isPressingRight){
-            // animator.SetInteger("Direction", 0);
-            // animator.SetBool("isWalking", true);
+            spriteRenderer.flipX = false;
+            animator.SetBool("isWalking", true);
             myPosition.x += movementSpeed * Time.deltaTime;
         }
         else if(isPressingLeft){
-            // animator.SetInteger("Direction", 1);
-            // animator.SetBool("isWalking", true);
+            spriteRenderer.flipX = true;
+            animator.SetBool("isWalking", true);
             myPosition.x -= movementSpeed * Time.deltaTime;
         }
         if(!isGrounded && rb.velocity.y < 0){
-            // animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false);
             // animator.SetBool("isFalling", true);
         }else{
             // animator.SetBool("isFalling", false);
