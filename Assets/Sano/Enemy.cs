@@ -70,9 +70,9 @@ public class Enemy : MonoBehaviour
     {
         // スポーンの場所を指定
         //Vector2 spawnPosition = m_camera.ViewportToWorldPoint(new Vector2(1.0f, 0.5f));
-        //spawnPosition.y = m_rig.position.y;
+        m_spawnPosition.y = m_rig.position.y;
 
-        m_rig.transform.position = m_spawnPosition;
+        m_rig.position = m_spawnPosition;
     }
 
     protected virtual void Move()
@@ -101,12 +101,14 @@ public class Enemy : MonoBehaviour
 
     protected void Dead()
     {
+        m_rig.constraints = RigidbodyConstraints2D.FreezePosition;
         //  死んだときの動作をここに書く
         if (!_isDead)
         {
             m_animator.SetBool("Die", true);
             m_question_mark.SetActive(false);
             _isDead = true;
+            this.GetComponent<Collider2D>().enabled = false;
         }
     }
 
@@ -129,7 +131,6 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Attack_anim()
     {
-        Debug.Log("test");
         _isAttacking = true;
         m_animator.SetBool("Attack", true);
         float tmp_speed = this.speed;
