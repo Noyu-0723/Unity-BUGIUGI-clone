@@ -12,9 +12,15 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int remaining_time;
 
-    private bool isGameStart;
-    private bool isGameClear;
-    private bool isGameOver;
+    [System.NonSerialized]
+    public bool isGameStart;
+
+    [System.NonSerialized]
+    public bool isGameClear;
+
+    [System.NonSerialized]
+    public bool isGameOver;
+
     public AudioSource titleBGM;
     public AudioSource inGameBGM;
     public AudioSource gameOverBGM;

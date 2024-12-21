@@ -16,11 +16,14 @@ public class TimerCounterPresenter : MonoBehaviour
     
     private void Start()
     {
-        _timerManager.StartBattleCountTime();
-      
         _timerManager
             .CountDownTime
             .Subscribe(_view.SetView)
             .AddTo(this.gameObject);
+    }
+
+	private void Update()
+	{
+        _timerManager.StartBattleCountTime();
     }
 }
