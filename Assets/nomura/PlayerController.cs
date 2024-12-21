@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour{
         if(Input.GetMouseButtonDown(0)){
             if(targetingEnemy != null) targetingEnemy.isTargeting = false; // 敵のターゲットをリセット
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D hitCollider = Physics2D.OverlapCircle(mousePosition, 0.1f);
+            Collider2D hitCollider = Physics2D.OverlapCircle(mousePosition, 0.3f);
             if(hitCollider != null && hitCollider.CompareTag("Enemy")){
                 targetingEnemy = hitCollider.GetComponent<Enemy>();
                 isTarget = true;
@@ -118,23 +118,23 @@ public class PlayerController : MonoBehaviour{
         }
     }
     // 接触判定
-    private void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Enemy")){
+    private void OnTriggerEnter2D(Collider2D other){
+        if(other.gameObject.CompareTag("Enemy")){
             if(isGrounded){
                 // animator.play(TakeDamage);
-                // Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                // Enemy enemy = other.gameObject.GetComponent<Enemy>();
                 playerHp -= 1; // 仮実装
             }
         }
     }
     // 接地判定
-    private void OnCollisionStay2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Floor")){
+    private void OnTriggerStay2D(Collider2D other){
+        if(other.gameObject.CompareTag("Floor")){
             isGrounded = true;
         }
     }
-    private void OnCollisionExit2D(Collision2D collision){
-        if(collision.gameObject.CompareTag("Floor")){
+    private void OnTriggerExit2D(Collider2D other){
+        if(other.gameObject.CompareTag("Floor")){
             isGrounded = false;
         }
     }
