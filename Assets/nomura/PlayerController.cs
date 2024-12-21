@@ -5,10 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
     private int playerMaxHp = 1;
     private int playerHp;
-    private int playerAttack;
+    private int playerAttack; 
     private Rigidbody2D rb;
     private Collider2D playerCollider2D;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     public Vector2 respawnPosition; // リスポーン地点
     public Enemy targetingEnemy = null; // 現在ターゲティングしている敵
     public Collider2D normalAttackCollider2D; // 通常攻撃のコリジョン
@@ -29,7 +30,8 @@ public class PlayerController : MonoBehaviour{
         playerAttack = 1;
         rb = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
-        // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update(){
         if(canMove && isGrounded){
@@ -43,27 +45,26 @@ public class PlayerController : MonoBehaviour{
     // 移動に関する処理
     private void HandleMovement(){
         if(!canMove) return;
+        Vector3 myPosition = this.transform.position;
         bool isPressingLeft = Input.GetKey(KeyCode.A);
         bool isPressingRight = Input.GetKey(KeyCode.D);
         if(isPressingRight){
-            // animator.SetInteger("Direction", 0);
-            // animator.SetBool("isWalking", true);
-            rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
+            spriteRenderer.flipX = false;
+            animator.SetBool("isWalking", true);
+            myPosition.x += movementSpeed * Time.deltaTime;
         }
         else if(isPressingLeft){
-            // animator.SetInteger("Direction", 1);
-            // animator.SetBool("isWalking", true);
-            rb.velocity = new Vector2(-movementSpeed, rb.velocity.y);
-        }
-        else{
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            spriteRenderer.flipX = true;
+            animator.SetBool("isWalking", true);
+            myPosition.x -= movementSpeed * Time.deltaTime;
         }
         if(!isGrounded && rb.velocity.y < 0){
-            // animator.SetBool("isWalking", false);
+            animator.SetBool("isWalking", false);
             // animator.SetBool("isFalling", true);
         }else{
             // animator.SetBool("isFalling", false);
         }
+        this.transform.position = myPosition;
     }
     // 敵のターゲティング
     private void HandleEnemyTarget(){
@@ -85,6 +86,7 @@ public class PlayerController : MonoBehaviour{
     // 入れ替えスキルの発動
     private void HandleReplacement(){
         if(Input.GetMouseButtonDown(1) && isTarget){
+            replaceSE.Play();
             targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
             targetingEnemy.transform.position = this.transform.position;
@@ -103,15 +105,10 @@ public class PlayerController : MonoBehaviour{
     private void HandleCheckDeath(){
         if(playerHp <= 0){
             // animator.play("Defeat");
+            defeatSE.Play();
             StartCoroutine(MoveLock(defeatMoveLockDuration));
-            Respawn();
+            StartCoroutine(Respawn(defeatMoveLockDuration));
         }
-    }
-    // リスポーン
-    private void Respawn(){
-        // animator.play("Respawn");
-        playerHp = playerMaxHp;
-        this.transform.position = respawnPosition;
     }
     // 接触判定
     private void OnCollisionEnter2D(Collision2D collision){
@@ -144,12 +141,27 @@ public class PlayerController : MonoBehaviour{
         yield return new WaitForSeconds(duration);
         canMove = true;
     }
+    // リスポーン
+    IEnumerator Respawn(float duration){
+        yield return new WaitForSeconds(duration);
+        // animator.play("Respawn");
+        playerHp = playerMaxHp;
+        this.transform.position = respawnPosition;
+    }
     // 通常攻撃の判定処理
     IEnumerator NormalAttack(){
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        attackSE.Play();
+        normalAttackCollider2D.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        normalAttackCollider2D.gameObject.SetActive(false);
     }
     // 落下攻撃の判定処理
     IEnumerator AirAttack(){
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        explosionSE.Play();
+        airAttackCollider2D.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        airAttackCollider2D.gameObject.SetActive(false);
     }
 }
