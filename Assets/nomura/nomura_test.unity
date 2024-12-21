@@ -664,6 +664,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2996117907924948699, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186692442904209848, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6524847114452548027, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1026,9 +1034,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1464848580051641073, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1843786711373248560, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       propertyPath: m_Name
       value: AttackNormalRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 2012804093109920167, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2012804093109920167, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2012804093109920167, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1070,9 +1090,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2806069501910422193, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2953788445206194773, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: attackMoveLockAfterDuration
+      value: 0.617
+      objectReference: {fileID: 0}
+    - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: attackMoveLockBeforeDuration
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

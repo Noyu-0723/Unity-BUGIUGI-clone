@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour{
     public bool isTarget = false; // 敵をターゲティングしているのかどうか
     public bool isGrounded = true; // 地面と接しているのかどうか
     public float movementSpeed; // 移動速度
-    public float attackMoveLockDuration; // 攻撃モーション中に動けないフレーム
+    public float attackMoveLockBeforeDuration; // 攻撃の前隙
+    public float attackMoveLockAfterDuration; // 攻撃の後隙
+    public float airAttackMoveLockBeforeDuration; // 落下攻撃の前隙
     public float defeatMoveLockDuration; // 死亡モーション中に動けないフレーム
     public float replacementCooldown; // 入れ替えスキルのクールダウン
     void Start(){
@@ -69,6 +71,7 @@ public class PlayerController : MonoBehaviour{
     private void HandleAirMovement(){
         animator.SetBool("isWalking", false);
         animator.Play("SpecialAttack");
+        StartCoroutine(AirAttack(airAttackMoveLockBeforeDuration));
     }
     // 敵のターゲティング
     private void HandleEnemyTarget(){
@@ -101,8 +104,8 @@ public class PlayerController : MonoBehaviour{
     private void HandleAttack(){
         if(Input.GetKeyDown(KeyCode.Space)){
             animator.Play("Attack");
-            StartCoroutine(MoveLock(attackMoveLockDuration));
-            StartCoroutine(NormalAttack(attackMoveLockDuration));
+            StartCoroutine(MoveLock(attackMoveLockBeforeDuration + attackMoveLockAfterDuration));
+            StartCoroutine(NormalAttack(attackMoveLockBeforeDuration, attackMoveLockAfterDuration));
         }
     }
     // 死亡判定
@@ -121,8 +124,6 @@ public class PlayerController : MonoBehaviour{
                 // animator.play(TakeDamage);
                 // Enemy enemy = collision.gameObject.GetComponent<Enemy>();
                 playerHp -= 1; // 仮実装
-            }else{
-                StartCoroutine(AirAttack());
             }
         }
     }
@@ -143,6 +144,7 @@ public class PlayerController : MonoBehaviour{
         yield return new WaitForSeconds(duration);
         canMove = true;
     }
+    // 入れ替え不能状態
     IEnumerator SkillLock(float duration){
         isReplacementable = false;
         yield return new WaitForSeconds(duration);
@@ -156,8 +158,8 @@ public class PlayerController : MonoBehaviour{
         animator.Play("Stand");
     }
     // 通常攻撃の判定処理
-    IEnumerator NormalAttack(float duration){
-        yield return new WaitForSeconds(duration);
+    IEnumerator NormalAttack(float before, float after){
+        yield return new WaitForSeconds(before);
         attackSE.Play();
         if(!spriteRenderer.flipX){
             normalAttackRightCollider2D.gameObject.SetActive(true);
@@ -168,9 +170,14 @@ public class PlayerController : MonoBehaviour{
             yield return new WaitForSeconds(0.1f);
             normalAttackLeftCollider2D.gameObject.SetActive(false);
         }
+        yield return new WaitForSeconds(after);
     }
     // 落下攻撃の判定処理
-    IEnumerator AirAttack(){
+    IEnumerator AirAttack(float duration){
+        yield return new WaitForSeconds(duration);
+        Vector3 newPosition = this.transform.position;
+        newPosition.y = respawnPosition.y;
+        this.transform.position = newPosition;
         explosionSE.Play();
         airAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
