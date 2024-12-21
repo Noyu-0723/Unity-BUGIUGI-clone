@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         // do nothing
     }
@@ -102,8 +102,12 @@ public class Enemy : MonoBehaviour
     protected void Dead()
     {
         //  €‚ñ‚¾‚Æ‚«‚Ì“®ì‚ğ‚±‚±‚É‘‚­
-        _isDead = true;
-        StartCoroutine("Dead_anim");
+        if (!_isDead)
+        {
+            _isDead = true;
+            Debug.Log("dead");
+            StartCoroutine("Dead_anim");
+        }
     }
 
     IEnumerator SetQuestionMark()
@@ -112,10 +116,11 @@ public class Enemy : MonoBehaviour
         float tmp_speed = this.speed;
         this.speed = 0.0f;
         m_animator.SetBool("Stand", true);
+        yield return null;
+        m_animator.SetBool("Stand", false);
         yield return new WaitForSeconds(question_mark_time);
         this.speed = tmp_speed;
         m_question_mark.SetActive(false);
-        m_animator.SetBool("Stand", false);
     }
 
     IEnumerator Attack_anim()
@@ -124,8 +129,9 @@ public class Enemy : MonoBehaviour
         m_animator.SetBool("Attack", true);
         float tmp_speed = this.speed;
         this.speed = 0.0f;
-        yield return new WaitForSeconds(attack_time);
+        yield return null;
         m_animator.SetBool("Attack", false);
+        yield return new WaitForSeconds(attack_time);
         this.speed = tmp_speed;
         _isAttacking = false;
     }
