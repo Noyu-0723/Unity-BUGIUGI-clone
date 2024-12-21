@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     private bool isGameOver;
     public AudioSource titleBGM;
     public AudioSource inGameBGM;
+    public AudioSource gameOverBGM;
     public AudioSource resultBGM;
     public AudioSource nowBGM;
 
@@ -38,32 +39,44 @@ public class GameController : MonoBehaviour
 
 	void Start()
 	{
-        StartMusic(titleBGM);
         isGameStart = false;
         isGameClear = false;
         isGameOver = false;
     }
 
-	public void GameStart()
-	{
-        StopMusic();
-        StartMusic(inGameBGM);
-	}
-
-    public void SpawnEnemy()
-	{
-
-	}
-
-    public void GameClear()
-    {
-        StopMusic();
-        StartMusic(resultBGM);
+    void Update(){
+        HandleTitle();
+        HandleGameStart();
+        HandleGameClear();
+        HandleGameOver();
     }
 
-    public void GameOver()
-    {
+    public void HandleTitle(){
+        if(!isGameStart && !isGameClear && !isGameOver){
+            StopMusic();
+            StartMusic(titleBGM);
+        }
+    }
 
+	public void HandleGameStart(){
+        if(isGameStart){
+            StopMusic();
+            StartMusic(inGameBGM);
+        }
+	}
+
+    public void HandleGameClear(){
+        if(isGameClear){
+            StopMusic();
+            StartSound(resultBGM);
+        }
+    }
+
+    public void HandleGameOver(){
+        if(isGameOver){
+            StopMusic();
+            StartMusic(gameOverBGM);
+        }
     }
 
     // �Q�[���I���֐�
@@ -81,6 +94,12 @@ public class GameController : MonoBehaviour
     public void StartMusic(AudioSource audio){
         nowBGM = audio;
         nowBGM.loop = true;
+        nowBGM.Play();
+    }
+    
+    // SEを再生
+    public void StartSound(AudioSource audio){
+        nowBGM = audio;
         nowBGM.Play();
     }
 
