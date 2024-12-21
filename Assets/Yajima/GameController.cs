@@ -91,6 +91,19 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void Switch_GameStart()
+	{
+        isGameStart = true;
+	}
+    public void Switch_GameClear()
+    {
+        isGameClear = true;
+    }
+    public void Switch_GameOver()
+    {
+        isGameOver = true;
+    }
+
     // �Q�[���I���֐�
     public void Quit()
     {
