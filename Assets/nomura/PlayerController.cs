@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour{
     private SpriteRenderer spriteRenderer;
     public Vector2 respawnPosition; // リスポーン地点
     public Enemy targetingEnemy = null; // 現在ターゲティングしている敵
-    public Collider2D normalAttackCollider2D; // 通常攻撃のコリジョン
+    public Collider2D normalAttackRightCollider2D; // 通常攻撃のコリジョン
+    public Collider2D normalAttackLeftCollider2D; // 通常攻撃のコリジョン
     public Collider2D airAttackCollider2D; // 落下攻撃のコリジョン
     public AudioSource attackSE; // 攻撃時のSE
     public AudioSource defeatSE; // 敗北時のSE
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour{
     public bool canMove = true; // 移動可能なのかどうか
     public bool isReplacementable = true; // 入れ替え可能なのかどうか
     public bool isTarget = false; // 敵をターゲティングしているのかどうか
-    public bool isGrounded = false; // 地面と接しているのかどうか
+    public bool isGrounded = true; // 地面と接しているのかどうか
     public float movementSpeed = 5f; // 移動速度
     public float attackMoveLockDuration = 0.8f; // 攻撃モーション中に動けないフレーム
     public float defeatMoveLockDuration = 1.417f; // 死亡モーション中に動けないフレーム
@@ -41,11 +42,12 @@ public class PlayerController : MonoBehaviour{
             HandleReplacement();
             HandleAttack();
             HandleCheckDeath();
+        }else if(!isGrounded){
+            HandleAirMovement();
         }
     }
     // 移動に関する処理
     private void HandleMovement(){
-        if(!canMove) return;
         Vector3 myPosition = this.transform.position;
         bool isPressingLeft = Input.GetKey(KeyCode.A);
         bool isPressingRight = Input.GetKey(KeyCode.D);
@@ -62,13 +64,11 @@ public class PlayerController : MonoBehaviour{
         if(isGrounded && !isPressingRight && !isPressingLeft){
             animator.SetBool("isWalking", false);
         }
-        else if(!isGrounded && rb.velocity.y < 0){
-            animator.SetBool("isWalking", false);
-            animator.Play("SpecialAttack");
-        }else{
-            // animator.SetBool("isFalling", false);
-        }
         this.transform.position = myPosition;
+    }
+    private void HandleAirMovement(){
+        animator.SetBool("isWalking", false);
+        animator.Play("SpecialAttack");
     }
     // 敵のターゲティング
     private void HandleEnemyTarget(){
@@ -132,7 +132,6 @@ public class PlayerController : MonoBehaviour{
             isGrounded = true;
         }
     }
-    // 地面から離れたことを感知
     private void OnCollisionExit2D(Collision2D collision){
         if(collision.gameObject.CompareTag("Floor")){
             isGrounded = false;
@@ -160,9 +159,15 @@ public class PlayerController : MonoBehaviour{
     IEnumerator NormalAttack(){
         yield return new WaitForSeconds(0.1f);
         attackSE.Play();
-        normalAttackCollider2D.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        normalAttackCollider2D.gameObject.SetActive(false);
+        if(!spriteRenderer.flipX){
+            normalAttackRightCollider2D.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            normalAttackRightCollider2D.gameObject.SetActive(false);
+        }else if(spriteRenderer.flipX){
+            normalAttackLeftCollider2D.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            normalAttackLeftCollider2D.gameObject.SetActive(false);
+        }
     }
     // 落下攻撃の判定処理
     IEnumerator AirAttack(){
