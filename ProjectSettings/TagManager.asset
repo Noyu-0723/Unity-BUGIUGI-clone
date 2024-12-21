@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Castle
+  - FxTemporaire
+  - Floor
+  - Attack
   layers:
   - Default
   - TransparentFX
