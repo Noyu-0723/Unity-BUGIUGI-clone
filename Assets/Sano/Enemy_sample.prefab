@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1186970206948190135
 Transform:
   m_ObjectHideFlags: 0
@@ -215,6 +215,7 @@ MonoBehaviour:
   m_target_mark: {fileID: 7771870748695841367}
   m_question_mark: {fileID: 2532964130919451951}
   isTargeting: 0
+  _tmp_isPositionChanged: 0
 --- !u!61 &902593710506399961
 BoxCollider2D:
   m_ObjectHideFlags: 0

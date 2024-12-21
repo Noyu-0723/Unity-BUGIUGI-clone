@@ -20,8 +20,8 @@ public class Spawn_Enemy : MonoBehaviour
         {
             Instantiate(enemy_goblin);
             yield return new WaitForSeconds(enemy_time_span);
-            Instantiate(enemy_dragon);
-            yield return new WaitForSeconds(enemy_time_span);
+            //Instantiate(enemy_dragon);
+            //yield return new WaitForSeconds(enemy_time_span);
         }
     }
 

@@ -7,7 +7,6 @@ using UnityEngine;
  * ・最初はdisableにしてinstantiate, OnEnableで動き始めるようにする
  * ・Playerとのやりとり
  * 　・isTargeting    // ターゲットするときに呼び出す
- * 　・void TakeDamage()    // プレイヤーが攻撃アクションをした時に呼び出す
  * 　・void PositionChanged()    // プレイヤーとの座標の入れ替えが起こった時に呼び出す
  * */
 
@@ -16,7 +15,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] protected GameObject m_target_mark;
     [SerializeField] protected GameObject m_question_mark;
-    private float question_mark_time = 2.0f;
+    protected float question_mark_time = 2.0f;
 
     protected Camera m_camera;
     public bool isTargeting = false;
@@ -31,17 +30,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
 
-    private void OnEnable()
-    {
-        m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();//Camera.current;
-        m_rig = this.GetComponent<Rigidbody2D>();
-        Spawn();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-        // do nothing
+        m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();//Camera.current;
+        m_rig = this.GetComponent<Rigidbody2D>();
+        Spawn();
     }
 
     // Update is called once per frame
@@ -75,20 +70,20 @@ public class Enemy : MonoBehaviour
 
     // プレイヤーにアタックする
     // プレイヤー側からの被ダメはプレイヤー自身で完結するため、アタックのモーションだけ実行する
-    private void AttackPlayer()
+    protected void AttackPlayer()
     {
         // 攻撃のアニメーションを実行
         Dead();    // 一旦deadにする
     }
 
     // 城に攻撃する
-    private void AttackCastle()
+    protected void AttackCastle()
     {
         // 城に衝突
         // ゲームオーバーにする？
     }
 
-    private void Dead()
+    protected void Dead()
     {
         //  死んだときの動作をここに書く
 
@@ -108,7 +103,7 @@ public class Enemy : MonoBehaviour
     }
 
     // プレイヤーからのダメージを受ける（Playerから呼び出し）
-    public void TakeDamage(int ap)
+    protected void TakeDamage(int ap)
     {
         this.hp -= ap;
         if (this.hp <= 0)
@@ -151,6 +146,12 @@ public class Enemy : MonoBehaviour
         {
             AttackPlayer();
         }
+        /* あとでタグを入れる
+        else if (other.CompareTag("Damage"))
+        {
+            TakeDamage(1);
+        }
+        */
         else if (other.CompareTag("Castle"))
         {
             AttackCastle();

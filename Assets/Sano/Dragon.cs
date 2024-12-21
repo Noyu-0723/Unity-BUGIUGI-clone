@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx.Triggers;
 using UnityEngine;
 
 
@@ -14,6 +15,8 @@ public class Dragon : Enemy
     private float m_current_move_wave_amp = 1.0f;
 
     private bool m_isPositionChanged = false;
+
+
 
     protected override void Move()
     {
