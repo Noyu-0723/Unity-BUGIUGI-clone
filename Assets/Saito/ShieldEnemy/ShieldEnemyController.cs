@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ShieldEnemyController : Enemy
 {
-   public IObservable<Unit> OnAttack => _attackSubject;
-   private Subject<Unit> _attackSubject = new Subject<Unit>();
+   public IObservable<string> OnAttack => _attackSubject;
+   private Subject<string> _attackSubject = new Subject<string>();
    
    /// <summary>
    /// 
@@ -18,27 +18,43 @@ public class ShieldEnemyController : Enemy
    /// </summary>
    [SerializeField] private Collider2D _backCollider2D;
    
-   /*public override void Start()
+   public override void Start()
    {
-      //base.Start();
+      base.Start();
+
+      Observable
+         .EveryFixedUpdate()
+         .Subscribe(_ => Move())
+         .AddTo(this.gameObject);
       
       _shieldCollider2D
          .OnCollisionEnter2DAsObservable()
-         .Subscribe(_=>_attackSubject.OnNext(Unit.Default))
+         .Subscribe(x=> _attackSubject.OnNext(x.collider.tag))
+         .AddTo(this.gameObject);
+
+      _attackSubject
+         .Where(x=> x == "Player")
+         .Subscribe(_=>AttackPlayer())
+         .AddTo(this.gameObject);
+      
+      _attackSubject
+         .Where(x=> x == "Castle")
+         .Subscribe(_=>AttackCastle())
          .AddTo(this.gameObject);
       
       _backCollider2D
-         .OnCollisionEnter2DAsObservable()
-         .Where(x=> x.gameObject.CompareTag("Player"))
-          .Where(x=>x.gameObject.transform.forward == this.gameObject.transform.forward)
-         .Subscribe(_=> Destroy(this.gameObject))
+         .OnTriggerEnter2DAsObservable()
+         .Where(x=> x.gameObject.CompareTag("Player") || x.gameObject.CompareTag("Attack"))
+         .Subscribe(_=>
+         {
+            TakeDamage(1);
+            Destroy(this.gameObject);
+         })
          .AddTo(this.gameObject);
-   }*/
-
-   /*
-   public override void OnCollisionEnter2D(Collision other)
+   }
+   
+   public override void OnCollisionEnter2D(Collision2D other)
    {
       // do nothing
    }
-   */
 }
