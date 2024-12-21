@@ -178,7 +178,7 @@ public class Enemy : MonoBehaviour
 
     // Õ“Ë‘Šè‚Ì”»’è‚ÍTag‚Å
     // Player or Castle
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
 
         GameObject opponent = collision.gameObject;    // Õ“Ë‘Šè‚ğæ“¾
