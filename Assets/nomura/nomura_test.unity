@@ -154,6 +154,7 @@ MonoBehaviour:
   remaining_time: 0
   titleBGM: {fileID: 390355068}
   inGameBGM: {fileID: 1081949140}
+  gameOverBGM: {fileID: 0}
   resultBGM: {fileID: 396251249}
   nowBGM: {fileID: 0}
 --- !u!4 &422722
@@ -603,6 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c73668913e6efb4485ec7dfc693c876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnPosition: {x: -7.5, y: 0}
   targetingEnemy: {fileID: 0}
   normalAttackCollider2D: {fileID: 0}
   airAttackCollider2D: {fileID: 0}
@@ -615,8 +617,8 @@ MonoBehaviour:
   isGrounded: 0
   movementSpeed: 5
   attackMoveLockDuration: 0.8
-  defeatMoveLockDuration: 5
-  replacementCooldown: 3
+  defeatMoveLockDuration: 3
+  replacementCooldown: 2
 --- !u!4 &976144581
 Transform:
   m_ObjectHideFlags: 0
