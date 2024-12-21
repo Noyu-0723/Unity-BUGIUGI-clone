@@ -23,10 +23,10 @@ public class PlayerController : MonoBehaviour{
     public bool isReplacementable = true; // 入れ替え可能なのかどうか
     public bool isTarget = false; // 敵をターゲティングしているのかどうか
     public bool isGrounded = true; // 地面と接しているのかどうか
-    public float movementSpeed = 5f; // 移動速度
-    public float attackMoveLockDuration = 0.8f; // 攻撃モーション中に動けないフレーム
-    public float defeatMoveLockDuration = 1.417f; // 死亡モーション中に動けないフレーム
-    public float replacementCooldown = 5.0f; // 入れ替えスキルのクールダウン
+    public float movementSpeed; // 移動速度
+    public float attackMoveLockDuration; // 攻撃モーション中に動けないフレーム
+    public float defeatMoveLockDuration; // 死亡モーション中に動けないフレーム
+    public float replacementCooldown; // 入れ替えスキルのクールダウン
     void Start(){
         playerHp = playerMaxHp;
         playerAttack = 1;
@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour{
         if(Input.GetKeyDown(KeyCode.Space)){
             animator.Play("Attack");
             StartCoroutine(MoveLock(attackMoveLockDuration));
-            StartCoroutine(NormalAttack());
+            StartCoroutine(NormalAttack(attackMoveLockDuration));
         }
     }
     // 死亡判定
@@ -156,8 +156,8 @@ public class PlayerController : MonoBehaviour{
         animator.Play("Stand");
     }
     // 通常攻撃の判定処理
-    IEnumerator NormalAttack(){
-        yield return new WaitForSeconds(0.1f);
+    IEnumerator NormalAttack(float duration){
+        yield return new WaitForSeconds(duration);
         attackSE.Play();
         if(!spriteRenderer.flipX){
             normalAttackRightCollider2D.gameObject.SetActive(true);
@@ -171,7 +171,6 @@ public class PlayerController : MonoBehaviour{
     }
     // 落下攻撃の判定処理
     IEnumerator AirAttack(){
-        yield return new WaitForSeconds(0.1f);
         explosionSE.Play();
         airAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
