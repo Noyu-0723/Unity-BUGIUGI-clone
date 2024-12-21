@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
         //Vector2 spawnPosition = m_camera.ViewportToWorldPoint(new Vector2(1.0f, 0.5f));
         m_spawnPosition.y = m_rig.position.y;
 
-        m_rig.position = m_spawnPosition;
+        //m_rig.position = m_spawnPosition;
     }
 
     protected virtual void Move()
@@ -177,7 +177,7 @@ public class Enemy : MonoBehaviour
 
     // Õ“Ë‘Šè‚Ì”»’è‚ÍTag‚Å
     // Player or Castle
-    public virtual void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
 
         GameObject opponent = collision.gameObject;    // Õ“Ë‘Šè‚ğæ“¾

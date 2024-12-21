@@ -53,8 +53,8 @@ public class ShieldEnemyController : Enemy
          .AddTo(this.gameObject);
    }
    
-   public override void OnCollisionEnter2D(Collision2D other)
-   {
+   public override void OnTriggerEnter2D(Collider2D collision)
+    {
       // do nothing
    }
 }
