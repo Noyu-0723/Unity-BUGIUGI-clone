@@ -30,6 +30,7 @@ public class ShieldEnemy : Enemy
       /*
       _backCollider2D
          .OnTriggerEnterAsObservable()
+         .Where(x=> x.gameObject.CompareTag("Player"))
          .Subscribe(_=> Dead())
          .AddTo(this.gameObject);
    */
