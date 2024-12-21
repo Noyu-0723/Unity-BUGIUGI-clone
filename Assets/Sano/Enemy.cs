@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject m_target_mark;
     [SerializeField] protected GameObject m_question_mark;
     protected float question_mark_time = 2.0f;
-    protected float attack_time = 2.0f;
+    protected float attack_time = 1.0f;
     protected float dead_time = 2.0f;
 
     [SerializeField] private Vector2 m_spawnPosition = new Vector2(10, -1);
@@ -104,10 +104,15 @@ public class Enemy : MonoBehaviour
         //  死んだときの動作をここに書く
         if (!_isDead)
         {
+            m_animator.SetBool("Die", true);
+            m_question_mark.SetActive(false);
             _isDead = true;
-            Debug.Log("dead");
-            StartCoroutine("Dead_anim");
         }
+    }
+
+    public void Destroy_enemy()
+    {
+        Destroy(this.gameObject);
     }
 
     IEnumerator SetQuestionMark()
@@ -116,33 +121,26 @@ public class Enemy : MonoBehaviour
         float tmp_speed = this.speed;
         this.speed = 0.0f;
         m_animator.SetBool("Stand", true);
-        yield return null;
-        m_animator.SetBool("Stand", false);
         yield return new WaitForSeconds(question_mark_time);
         this.speed = tmp_speed;
         m_question_mark.SetActive(false);
+        m_animator.SetBool("Stand", false);
     }
 
     IEnumerator Attack_anim()
     {
+        Debug.Log("test");
         _isAttacking = true;
         m_animator.SetBool("Attack", true);
         float tmp_speed = this.speed;
         this.speed = 0.0f;
-        yield return null;
-        m_animator.SetBool("Attack", false);
         yield return new WaitForSeconds(attack_time);
+        m_animator.SetBool("Attack", false);
         this.speed = tmp_speed;
         _isAttacking = false;
     }
 
-    IEnumerator Dead_anim()
-    {
-        m_animator.SetBool("Die", true);
-        yield return new WaitForSeconds(dead_time);
-        // とりあえずGameObjectを削除
-        Destroy(this.gameObject);
-    }
+    
 
     // プレイヤーからのダメージを受ける（Playerから呼び出し）
     protected void TakeDamage(int ap)
