@@ -108,6 +108,7 @@ public class Enemy : MonoBehaviour
             m_animator.SetBool("Die", true);
             m_question_mark.SetActive(false);
             _isDead = true;
+            this.GetComponent<Collider2D>().enabled = false;
         }
     }
 
