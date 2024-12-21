@@ -43,20 +43,18 @@ public class PlayerController : MonoBehaviour{
     // 移動に関する処理
     private void HandleMovement(){
         if(!canMove) return;
+        Vector3 myPosition = this.transform.position;
         bool isPressingLeft = Input.GetKey(KeyCode.A);
         bool isPressingRight = Input.GetKey(KeyCode.D);
         if(isPressingRight){
             // animator.SetInteger("Direction", 0);
             // animator.SetBool("isWalking", true);
-            rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
+            myPosition.x += movementSpeed * Time.deltaTime;
         }
         else if(isPressingLeft){
             // animator.SetInteger("Direction", 1);
             // animator.SetBool("isWalking", true);
-            rb.velocity = new Vector2(-movementSpeed, rb.velocity.y);
-        }
-        else{
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            myPosition.x -= movementSpeed * Time.deltaTime;
         }
         if(!isGrounded && rb.velocity.y < 0){
             // animator.SetBool("isWalking", false);
@@ -64,6 +62,7 @@ public class PlayerController : MonoBehaviour{
         }else{
             // animator.SetBool("isFalling", false);
         }
+        this.transform.position = myPosition;
     }
     // 敵のターゲティング
     private void HandleEnemyTarget(){
@@ -85,6 +84,7 @@ public class PlayerController : MonoBehaviour{
     // 入れ替えスキルの発動
     private void HandleReplacement(){
         if(Input.GetMouseButtonDown(1) && isTarget){
+            replaceSE.Play();
             targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
             targetingEnemy.transform.position = this.transform.position;
@@ -103,15 +103,10 @@ public class PlayerController : MonoBehaviour{
     private void HandleCheckDeath(){
         if(playerHp <= 0){
             // animator.play("Defeat");
+            defeatSE.Play();
             StartCoroutine(MoveLock(defeatMoveLockDuration));
-            Respawn();
+            StartCoroutine(Respawn(defeatMoveLockDuration));
         }
-    }
-    // リスポーン
-    private void Respawn(){
-        // animator.play("Respawn");
-        playerHp = playerMaxHp;
-        this.transform.position = respawnPosition;
     }
     // 接触判定
     private void OnCollisionEnter2D(Collision2D collision){
@@ -144,12 +139,27 @@ public class PlayerController : MonoBehaviour{
         yield return new WaitForSeconds(duration);
         canMove = true;
     }
+    // リスポーン
+    IEnumerator Respawn(float duration){
+        yield return new WaitForSeconds(duration);
+        // animator.play("Respawn");
+        playerHp = playerMaxHp;
+        this.transform.position = respawnPosition;
+    }
     // 通常攻撃の判定処理
     IEnumerator NormalAttack(){
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        attackSE.Play();
+        normalAttackCollider2D.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        normalAttackCollider2D.gameObject.SetActive(false);
     }
     // 落下攻撃の判定処理
     IEnumerator AirAttack(){
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
+        explosionSE.Play();
+        airAttackCollider2D.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        airAttackCollider2D.gameObject.SetActive(false);
     }
 }

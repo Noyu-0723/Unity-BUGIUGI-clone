@@ -312,6 +312,7 @@ GameObject:
   - component: {fileID: 3214522582707251993}
   - component: {fileID: 5255652287127848819}
   - component: {fileID: 2004511791059099866}
+  - component: {fileID: 5310022892177033022}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -421,6 +422,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5310022892177033022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6445385118044306758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c1d3d0d16ca4166b1bf9120a4b0f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 2004511791059099866}
+  _buttonRectTransform: {fileID: 3765172438753580688}
+  _scalingDuration: 0.35
 --- !u!1 &8692767441973193031
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +450,7 @@ GameObject:
   - component: {fileID: 8817790482358013487}
   - component: {fileID: 471353726062514596}
   - component: {fileID: 8030889489087052999}
+  - component: {fileID: 4711993479180258257}
   m_Layer: 5
   m_Name: QuiteButton
   m_TagString: Untagged
@@ -556,3 +573,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _quiteButton: {fileID: 471353726062514596}
+--- !u!114 &4711993479180258257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8692767441973193031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c1d3d0d16ca4166b1bf9120a4b0f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 471353726062514596}
+  _buttonRectTransform: {fileID: 3113892433381675045}
+  _scalingDuration: 0.35
