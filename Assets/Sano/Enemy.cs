@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     protected float attack_time = 2.0f;
     protected float dead_time = 2.0f;
 
+    [SerializeField] private Vector2 m_spawnPosition = new Vector2(10, -1);
+
     protected Camera m_camera;
     public bool isTargeting = false;
 
@@ -65,8 +67,10 @@ public class Enemy : MonoBehaviour
     protected virtual void Spawn()
     {
         // スポーンの場所を指定
-        Vector2 spawnPosition = m_camera.ViewportToWorldPoint(new Vector2(1.0f, 0.5f));
-        m_rig.transform.position = spawnPosition;
+        //Vector2 spawnPosition = m_camera.ViewportToWorldPoint(new Vector2(1.0f, 0.5f));
+        //spawnPosition.y = m_rig.position.y;
+
+        m_rig.transform.position = m_spawnPosition;
     }
 
     protected virtual void Move()
