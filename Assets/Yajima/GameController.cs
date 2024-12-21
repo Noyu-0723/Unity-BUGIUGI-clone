@@ -27,9 +27,15 @@ public class GameController : MonoBehaviour
         get { return remaining_time; } //�O���ɒl��Ԃ�
     }
 
-	#endregion
+    public bool GameOver
+    {
+        set { isGameOver = value; } //�l�̑��
+        get { return isGameOver; } //�O���ɒl��Ԃ�
+    }
 
-	void Awake()
+    #endregion
+
+    void Awake()
 	{
 		if(instance == null)
 		{
