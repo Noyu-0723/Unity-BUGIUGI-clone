@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     protected Rigidbody2D m_rig;
     protected Animator m_animator;
+    protected bool _isDead = false;
+    protected bool _isAttacking = false;
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         // do nothing
     }
@@ -84,7 +86,10 @@ public class Enemy : MonoBehaviour
     protected void AttackPlayer()
     {
         // 攻撃のアニメーションを実行
-        StartCoroutine("Attack_anim");
+        if (!_isDead && !_isAttacking)
+        {
+            StartCoroutine("Attack_anim");
+        }
     }
 
     // 城に攻撃する
@@ -97,7 +102,12 @@ public class Enemy : MonoBehaviour
     protected void Dead()
     {
         //  死んだときの動作をここに書く
-        StartCoroutine("Dead_anim");
+        if (!_isDead)
+        {
+            _isDead = true;
+            Debug.Log("dead");
+            StartCoroutine("Dead_anim");
+        }
     }
 
     IEnumerator SetQuestionMark()
@@ -106,20 +116,24 @@ public class Enemy : MonoBehaviour
         float tmp_speed = this.speed;
         this.speed = 0.0f;
         m_animator.SetBool("Stand", true);
+        yield return null;
+        m_animator.SetBool("Stand", false);
         yield return new WaitForSeconds(question_mark_time);
         this.speed = tmp_speed;
         m_question_mark.SetActive(false);
-        m_animator.SetBool("Stand", false);
     }
 
     IEnumerator Attack_anim()
     {
+        _isAttacking = true;
         m_animator.SetBool("Attack", true);
         float tmp_speed = this.speed;
         this.speed = 0.0f;
-        yield return new WaitForSeconds(attack_time);
+        yield return null;
         m_animator.SetBool("Attack", false);
+        yield return new WaitForSeconds(attack_time);
         this.speed = tmp_speed;
+        _isAttacking = false;
     }
 
     IEnumerator Dead_anim()
@@ -164,19 +178,19 @@ public class Enemy : MonoBehaviour
 
     // 衝突相手の判定はTagで
     // Player or Castle
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
 
         GameObject opponent = collision.gameObject;    // 衝突相手を取得
         Collider2D other = opponent.GetComponent<Collider2D>();
 
-        if (other.CompareTag("Player"))
-        {
-            AttackPlayer();
-        }
-        else if (other.CompareTag("Attack"))
+        if (other.CompareTag("Attack"))
         {
             TakeDamage(1);
+        }
+        else if (other.CompareTag("Player"))
+        {
+            AttackPlayer();
         }
         else if (other.CompareTag("Castle"))
         {

@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 6524847114452548027}
   - component: {fileID: 3610862358501540099}
   - component: {fileID: 5186692442904209848}
-  - component: {fileID: 3044199316992077155}
   - component: {fileID: 2996117907924948699}
   - component: {fileID: 5345009255597319497}
   - component: {fileID: 1826266066858133972}
@@ -220,24 +219,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &3044199316992077155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8671232487356011344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7358436dd9730a04da056c56840ba308, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_target_mark: {fileID: 3053320407509717845}
-  m_question_mark: {fileID: 8798272507160134018}
-  isTargeting: 0
-  _tmp_isPositionChanged: 0
-  m_move_wave_amp: 0
-  m_move_wave_freq: 0
 --- !u!50 &2996117907924948699
 Rigidbody2D:
   serializedVersion: 4
@@ -279,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_target_mark: {fileID: 3053320407509717845}
   m_question_mark: {fileID: 8798272507160134018}
+  m_spawnPosition: {x: 10, y: -1}
   isTargeting: 0
   _tmp_isPositionChanged: 0
   m_move_wave_amp: 0.1
