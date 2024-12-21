@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8496313392351821557}
   - component: {fileID: 2557850595263229287}
   m_Layer: 0
-  m_Name: Goblin
+  m_Name: unused_Goblin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
