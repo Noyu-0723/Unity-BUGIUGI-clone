@@ -18,9 +18,9 @@ public class ShieldEnemyController : Enemy
    /// </summary>
    [SerializeField] private Collider2D _backCollider2D;
    
-   public override void Start()
+   /*public override void Start()
    {
-      base.Start();
+      //base.Start();
       
       _shieldCollider2D
          .OnCollisionEnter2DAsObservable()
@@ -33,10 +33,12 @@ public class ShieldEnemyController : Enemy
           .Where(x=>x.gameObject.transform.forward == this.gameObject.transform.forward)
          .Subscribe(_=> Destroy(this.gameObject))
          .AddTo(this.gameObject);
-   }
+   }*/
 
+   /*
    public override void OnCollisionEnter2D(Collision other)
    {
       // do nothing
    }
+   */
 }
