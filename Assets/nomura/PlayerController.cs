@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour{
         }
         else if(!isGrounded && rb.velocity.y < 0){
             animator.SetBool("isWalking", false);
-            // animator.SetBool("isFalling", true);
+            animator.Play("SpecialAttack");
         }else{
             // animator.SetBool("isFalling", false);
         }
