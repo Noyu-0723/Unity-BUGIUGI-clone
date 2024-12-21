@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject m_question_mark;
     protected float question_mark_time = 2.0f;
     protected float attack_time = 2.0f;
+    protected float dead_time = 2.0f;
 
     protected Camera m_camera;
     public bool isTargeting = false;
@@ -31,15 +32,18 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
         m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();//Camera.current;
         m_rig = this.GetComponent<Rigidbody2D>();
         m_animator = this.GetComponent<Animator>();
         Spawn();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // do nothing
     }
 
     // Update is called once per frame
@@ -89,9 +93,7 @@ public class Enemy : MonoBehaviour
     protected void Dead()
     {
         //  死んだときの動作をここに書く
-
-        // とりあえずGameObjectを削除
-        Destroy(this.gameObject);
+        StartCoroutine("Dead_anim");
     }
 
     IEnumerator SetQuestionMark()
@@ -114,6 +116,14 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(attack_time);
         m_animator.SetBool("Attack", false);
         this.speed = tmp_speed;
+    }
+
+    IEnumerator Dead_anim()
+    {
+        m_animator.SetBool("Die", true);
+        yield return new WaitForSeconds(dead_time);
+        // とりあえずGameObjectを削除
+        Destroy(this.gameObject);
     }
 
     // プレイヤーからのダメージを受ける（Playerから呼び出し）
