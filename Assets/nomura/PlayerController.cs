@@ -3,34 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour{
-    private int playerHp = 1;
-    private int playerAttack = 1;
+    private int playerMaxHp = 1;
+    private int playerHp;
+    private int playerAttack;
     private Rigidbody2D rb;
     private Collider2D playerCollider2D;
     private Animator animator;
+    public Vector2 respawnPosition; // リスポーン地点
+    public Enemy targetingEnemy = null; // 現在ターゲティングしている敵
+    public Collider2D normalAttackCollider2D; // 通常攻撃のコリジョン
+    public Collider2D airAttackCollider2D; // 落下攻撃のコリジョン
+    public AudioSource attackSE; // 攻撃時のSE
+    public AudioSource defeatSE; // 敗北時のSE
+    public AudioSource replaceSE; // 入れ替わり時のSE
+    public AudioSource explosionSE; // 落下攻撃時のSE
+    public bool canMove = true; // 移動可能なのかどうか
+    public bool isTarget = false; // 敵をターゲティングしているのかどうか
+    public bool isGrounded = false; // 地面と接しているのかどうか
     public float movementSpeed = 5f; // 移動速度
-    public bool canMove = true;
     public float attackMoveLockDuration = 0.8f; // 攻撃モーション中に動けないフレーム
     public float defeatMoveLockDuration = 3.0f; // 死亡モーション中に動けないフレーム
-    public bool isGrounded = false; // 地面と接しているのかどうか
-    public float replacementCooldown = 10f; // 入れ替えスキルのクールダウン
-    public bool isTarget = false;
-    public Enemy targetingEnemy = null;
+    public float replacementCooldown = 5.0f; // 入れ替えスキルのクールダウン
     void Start(){
+        playerHp = playerMaxHp;
+        playerAttack = 1;
         rb = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         // animator = GetComponent<Animator>();
     }
     void Update(){
-        if(canMove){
+        if(canMove && isGrounded){
             HandleMovement();
             HandleEnemyTarget();
             HandleReplacement();
             HandleAttack();
             HandleCheckDeath();
-            if (rb.velocity.y < 0){
-                isGrounded = false;
-            }
         }
     }
     // 移動に関する処理
@@ -52,8 +59,10 @@ public class PlayerController : MonoBehaviour{
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
         if(!isGrounded && rb.velocity.y < 0){
-            // animator.SetBool("isSliding", false);
+            // animator.SetBool("isWalking", false);
             // animator.SetBool("isFalling", true);
+        }else{
+            // animator.SetBool("isFalling", false);
         }
     }
     // 敵のターゲティング
@@ -85,24 +94,48 @@ public class PlayerController : MonoBehaviour{
     // 通常攻撃
     private void HandleAttack(){
         if(Input.GetKeyDown(KeyCode.Space)){
-            // animator.SetTrigger("isAttack");
+            // animator.play("Attack");
             StartCoroutine(MoveLock(attackMoveLockDuration));
+            StartCoroutine(NormalAttack());
         }
     }
     // 死亡判定
     private void HandleCheckDeath(){
         if(playerHp <= 0){
-            // animator.SetTrigger("isDefeat");
+            // animator.play("Defeat");
             StartCoroutine(MoveLock(defeatMoveLockDuration));
+            Respawn();
         }
     }
-    // 敵との接触判定
+    // リスポーン
+    private void Respawn(){
+        // animator.play("Respawn");
+        playerHp = playerMaxHp;
+        this.transform.position = respawnPosition;
+    }
+    // 接触判定
     private void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.CompareTag("Enemy")){
-            // animator.SetTrigger(isDamage);
-            // StartCoroutine(MoveLock(defeatMoveLockDuration));
-            // Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            playerHp -= 1; // 仮実装
+            if(isGrounded){
+                // animator.play(TakeDamage);
+                // Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                playerHp -= 1; // 仮実装
+            }else{
+                StartCoroutine(AirAttack());
+            }
+            
+        }
+    }
+    // 接地判定
+    private void OnCollisionStay2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Floor")){
+            isGrounded = true;
+        }
+    }
+    // 地面から離れたことを感知
+    private void OnCollisionExit2D(Collision2D collision){
+        if(collision.gameObject.CompareTag("Floor")){
+            isGrounded = false;
         }
     }
     // 行動不能状態
@@ -110,5 +143,13 @@ public class PlayerController : MonoBehaviour{
         canMove = false;
         yield return new WaitForSeconds(duration);
         canMove = true;
+    }
+    // 通常攻撃の判定処理
+    IEnumerator NormalAttack(){
+        yield return null;
+    }
+    // 落下攻撃の判定処理
+    IEnumerator AirAttack(){
+        yield return null;
     }
 }
