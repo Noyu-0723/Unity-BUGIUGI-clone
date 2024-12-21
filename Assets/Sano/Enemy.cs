@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected GameObject m_target_mark;
     [SerializeField] protected GameObject m_question_mark;
     protected float question_mark_time = 2.0f;
+    protected float attack_time = 2.0f;
 
     protected Camera m_camera;
     public bool isTargeting = false;
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
     //private float attack = 1.0f;
 
     protected Rigidbody2D m_rig;
+    protected Animator m_animator;
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
@@ -36,6 +38,7 @@ public class Enemy : MonoBehaviour
     {
         m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();//Camera.current;
         m_rig = this.GetComponent<Rigidbody2D>();
+        m_animator = this.GetComponent<Animator>();
         Spawn();
     }
 
@@ -73,7 +76,7 @@ public class Enemy : MonoBehaviour
     protected void AttackPlayer()
     {
         // 攻撃のアニメーションを実行
-        Dead();    // 一旦deadにする
+        StartCoroutine("Attack_anim");
     }
 
     // 城に攻撃する
@@ -93,13 +96,24 @@ public class Enemy : MonoBehaviour
 
     IEnumerator SetQuestionMark()
     {
-        Debug.Log("test");
         m_question_mark.SetActive(true);
         float tmp_speed = this.speed;
         this.speed = 0.0f;
+        m_animator.SetBool("Stand", true);
         yield return new WaitForSeconds(question_mark_time);
         this.speed = tmp_speed;
         m_question_mark.SetActive(false);
+        m_animator.SetBool("Stand", false);
+    }
+
+    IEnumerator Attack_anim()
+    {
+        m_animator.SetBool("Attack", true);
+        float tmp_speed = this.speed;
+        this.speed = 0.0f;
+        yield return new WaitForSeconds(attack_time);
+        m_animator.SetBool("Attack", false);
+        this.speed = tmp_speed;
     }
 
     // プレイヤーからのダメージを受ける（Playerから呼び出し）
@@ -146,12 +160,10 @@ public class Enemy : MonoBehaviour
         {
             AttackPlayer();
         }
-        /* あとでタグを入れる
-        else if (other.CompareTag("Damage"))
+        else if (other.CompareTag("Attack"))
         {
             TakeDamage(1);
         }
-        */
         else if (other.CompareTag("Castle"))
         {
             AttackCastle();
