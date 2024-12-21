@@ -31,6 +31,8 @@ public class Enemy : MonoBehaviour
 
     protected Rigidbody2D m_rig;
     protected Animator m_animator;
+    protected bool _isDead = false;
+    protected bool _isAttacking = false;
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
@@ -84,7 +86,10 @@ public class Enemy : MonoBehaviour
     protected void AttackPlayer()
     {
         // 攻撃のアニメーションを実行
-        StartCoroutine("Attack_anim");
+        if (!_isDead && !_isAttacking)
+        {
+            StartCoroutine("Attack_anim");
+        }
     }
 
     // 城に攻撃する
@@ -97,6 +102,7 @@ public class Enemy : MonoBehaviour
     protected void Dead()
     {
         //  死んだときの動作をここに書く
+        _isDead = true;
         StartCoroutine("Dead_anim");
     }
 
@@ -114,12 +120,14 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Attack_anim()
     {
+        _isAttacking = true;
         m_animator.SetBool("Attack", true);
         float tmp_speed = this.speed;
         this.speed = 0.0f;
         yield return new WaitForSeconds(attack_time);
         m_animator.SetBool("Attack", false);
         this.speed = tmp_speed;
+        _isAttacking = false;
     }
 
     IEnumerator Dead_anim()
@@ -170,13 +178,13 @@ public class Enemy : MonoBehaviour
         GameObject opponent = collision.gameObject;    // 衝突相手を取得
         Collider2D other = opponent.GetComponent<Collider2D>();
 
-        if (other.CompareTag("Player"))
-        {
-            AttackPlayer();
-        }
-        else if (other.CompareTag("Attack"))
+        if (other.CompareTag("Attack"))
         {
             TakeDamage(1);
+        }
+        else if (other.CompareTag("Player"))
+        {
+            AttackPlayer();
         }
         else if (other.CompareTag("Castle"))
         {

@@ -200,7 +200,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3857960352479900825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_target_mark: {fileID: 7771870748695841367}
   m_question_mark: {fileID: 2532964130919451951}
+  m_spawnPosition: {x: 10, y: -1}
   isTargeting: 0
   _tmp_isPositionChanged: 0
 --- !u!61 &902593710506399961
