@@ -532,6 +532,10 @@ PrefabInstance:
       propertyPath: resultButton
       value: 
       objectReference: {fileID: 793924209}
+    - target: {fileID: 8988993251947263079, guid: ec60eaad40624495a8ea1ad2189a8681, type: 3}
+      propertyPath: _audioManager
+      value: 
+      objectReference: {fileID: 208093761}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1037,6 +1041,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 114046937}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &407196770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407196771}
+  m_Layer: 0
+  m_Name: SlashSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &407196771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407196770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.23, y: -0.03, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4050,6 +4085,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: slashObj
+      value: 
+      objectReference: {fileID: 2538865099433253905, guid: ea47dbee8c5bec547ab6dac27497bd12, type: 3}
+    - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: changeObj
+      value: 
+      objectReference: {fileID: 4727933101026138119, guid: 8e2975ebda388e8469c26715ddbeafa7, type: 3}
+    - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       propertyPath: crossImage
       value: 
       objectReference: {fileID: 534218118}
@@ -4057,6 +4100,10 @@ PrefabInstance:
       propertyPath: explosionObj
       value: 
       objectReference: {fileID: 5775973751047943766, guid: e22b7b21659db324a84c2b51992cc20b, type: 3}
+    - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: slashSpawner
+      value: 
+      objectReference: {fileID: 407196771}
     - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       propertyPath: explosionSpawner
       value: 
@@ -4083,6 +4130,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2012804093109920167, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       insertIndex: -1
       addedObject: {fileID: 406917163}
+    - targetCorrespondingSourceObject: {fileID: 2012804093109920167, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 407196771}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
 --- !u!1 &1600531275
@@ -4153,6 +4203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e136579aadfd4cc7b8f87e1c08eb902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioManager: {fileID: 0}
   _quiteButton: {fileID: 1600531279}
 --- !u!114 &1600531279
 MonoBehaviour:
