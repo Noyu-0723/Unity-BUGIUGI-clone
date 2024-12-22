@@ -28,7 +28,7 @@ public class TimerCounterPresenter : MonoBehaviour
 
 	private void Update()
 	{
-        if(GameController.instance.isGameStart)
+       // if(GameController.instance.isGameStart)
 		{
             if(num <= 0)
 			{
