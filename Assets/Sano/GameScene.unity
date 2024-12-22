@@ -383,8 +383,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
+      propertyPath: speed_range
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_min_time_span
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemyList.Array.data[0]
@@ -399,16 +403,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3502187466979891546, guid: 712cf728346bcd54fa2b8aad4db841d0, type: 3}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
+      propertyPath: enemySpeed.Array.data[1]
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_min_time_span_final
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_first.Array.data[0]
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[0]
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[1]
@@ -416,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[2]
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5300940864511877459, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: m_Name
@@ -4065,6 +4073,10 @@ PrefabInstance:
       propertyPath: explosionSpawner
       value: 
       objectReference: {fileID: 406917163}
+    - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
+      propertyPath: replacementCooldown
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5461121053545938439, guid: 41f532fe4ce32e44799d9d10de44a837, type: 3}
       propertyPath: normalAttackLeftCollider2D
       value: 
