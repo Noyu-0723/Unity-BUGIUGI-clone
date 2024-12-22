@@ -102,7 +102,7 @@ public class Spawn_Enemy : MonoBehaviour
             // ê∂ê¨ÇµÇ»Ç¢èÍçá
             if (enemy != null)
             {
-                GameObject obj = Instantiate(enemy, spawn_position, Quaternion.identity);
+                GameObject obj = Instantiate(enemy, spawn_position, Quaternion.identity, this.transform);
                 obj.SetActive(true);
                 obj.GetComponent<Enemy>().speed = speed;
             }
