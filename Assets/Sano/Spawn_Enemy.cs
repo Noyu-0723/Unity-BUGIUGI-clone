@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Spawn_Enemy : MonoBehaviour
 {
-    [SerializeField] private GameObject enemy_goblin;
-    [SerializeField] private GameObject enemy_dragon;
-    private float enemy_time_span = 2.0f;
+    // リストの要素のインデックスはそれぞれのオブジェクトに対応
+    // 後で直したい
+
+    [SerializeField] private float enemy_min_time_span;
+    // 敵キャラのインスタンスを入れる
+    [SerializeField] private List<GameObject> enemyList;
+    // それぞれの敵キャラの生成確率を入れる（合計1を超えないように、1未満の分は生成しない割合）
+    [SerializeField] private List<float> enemy_ratio;
+    // それぞれのキャラのスポーン位置
+    [SerializeField] private List<Vector2> ground_spawn_position;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,16 +26,28 @@ public class Spawn_Enemy : MonoBehaviour
     {
         while (true)
         {
-            Vector2 position = new Vector2(10.0f, -2.0f);
-            Transform t = this.transform;
-            t.position = position;
+            // ランダムで敵を生成
+            GameObject enemy = null;
+            Vector2 spawn_position = Vector2.zero;
+            float rand = Random.Range(0.0f, 1.0f);
+            float ratio_sum = 0.0f;
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                ratio_sum += enemy_ratio[i];
+                if (rand < ratio_sum)
+                {
+                    enemy = enemyList[i];
+                    spawn_position = ground_spawn_position[i];
+                    break;
+                }
+            }
+            // 生成しない場合
+            if (enemy != null)
+            {
+                Instantiate(enemy, spawn_position, Quaternion.identity);
+            }
 
-            Instantiate(enemy_goblin, t);
-            yield return new WaitForSeconds(enemy_time_span);
-            GameObject obj = Instantiate(enemy_dragon);
-            obj.SetActive(false);
-            yield return new WaitForSeconds(enemy_time_span);
-            obj.SetActive(true);
+            yield return new WaitForSeconds(enemy_min_time_span);
         }
     }
 
