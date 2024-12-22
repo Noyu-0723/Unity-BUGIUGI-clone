@@ -1,33 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using UnityEngine;
 
 public class Spawn_Enemy : MonoBehaviour
 {
-    // ƒŠƒXƒg‚Ì—v‘f‚ÌƒCƒ“ƒfƒbƒNƒX‚Í‚»‚ê‚¼‚ê‚ÌƒIƒuƒWƒFƒNƒg‚É‘Î‰
-    // Œã‚Å’¼‚µ‚½‚¢
+    // ï¿½ï¿½ï¿½Xï¿½gï¿½Ì—vï¿½fï¿½ÌƒCï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½Í‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½É‘Î‰ï¿½
+    // ï¿½ï¿½Å’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    // “G¶¬‚ğ”»’è‚·‚é•p“xiÅ‰j
+    // ï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½ğ”»’è‚·ï¿½ï¿½pï¿½xï¿½iï¿½Åï¿½ï¿½j
     [SerializeField] private float enemy_min_time_span;
-    // “K««‚ğ”»’è‚·‚é•p“xiÅŒãj
+    // ï¿½Kï¿½ï¿½ï¿½ï¿½ï¿½ğ”»’è‚·ï¿½ï¿½pï¿½xï¿½iï¿½ÅŒï¿½j
     [SerializeField] private float enemy_min_time_span_final;
-    // “GƒLƒƒƒ‰‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ“ü‚ê‚é
+    // ï¿½Gï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     [SerializeField] private List<GameObject> enemyList;
-    // “GƒLƒƒƒ‰‚ÌˆÚ“®‘¬“x
+    // ï¿½Gï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½ï¿½ï¿½x
     [SerializeField] private List<float> enemySpeed;
-    // ‚»‚ê‚¼‚ê‚Ì“GƒLƒƒƒ‰‚Ì¶¬Šm—¦‚ğ“ü‚ê‚éi‡Œv1‚ğ’´‚¦‚È‚¢‚æ‚¤‚ÉA1–¢–‚Ì•ª‚Í¶¬‚µ‚È‚¢Š„‡j
+    // ï¿½ï¿½ï¿½ê‚¼ï¿½ï¿½Ì“Gï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½mï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½v1ï¿½ğ’´‚ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½ÉA1ï¿½ï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½Íï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
     [SerializeField] private List<float> enemy_ratio_first;
-    // “GƒLƒƒƒ‰‚ÌÅI“I‚È¶¬Šm—¦
+    // ï¿½Gï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌÅIï¿½Iï¿½Èï¿½ï¿½ï¿½ï¿½mï¿½ï¿½
     [SerializeField] private List<float> enemy_ratio_finish;
-    // ‚»‚ê‚¼‚ê‚ÌƒLƒƒƒ‰‚ÌƒXƒ|[ƒ“ˆÊ’u
+    // ï¿½ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒLï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½|ï¿½[ï¿½ï¿½ï¿½Ê’u
     [SerializeField] private List<Vector2> ground_spawn_position;
 
     [SerializeField] private float speed_range = 0.2f;
 
     private List<float> enemy_ratio_diff = new List<float>();
     private float enemy_min_time_span_diff = 0.0f;
-    private float remaining_time = 60.0f;    // ‚ ‚Æ‚Å‚È‚ñ‚Æ‚©‚·‚é
+    private float remaining_time = 60.0f;    // ï¿½ï¿½ï¿½Æ‚Å‚È‚ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½
     private float start_time = 0.0f;
     private float prev_time = 0.0f;
 
@@ -38,7 +39,7 @@ public class Spawn_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Å‰‚Éˆê‘Ì‚¾‚¯ƒSƒuƒŠƒ“‚ğ¶¬
+        // ï¿½Åï¿½ï¿½Éˆï¿½Ì‚ï¿½ï¿½ï¿½ï¿½Sï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ğ¶ï¿½
         //GameObject obj = Instantiate(enemyList[0], ground_spawn_position[0], Quaternion.identity);
         //obj.GetComponent<Enemy>().speed = enemySpeed[0];
         //obj.SetActive(true);
@@ -57,11 +58,17 @@ public class Spawn_Enemy : MonoBehaviour
         gc = GameObject.Find("GameController").GetComponent<GameController>();
 
         StartCoroutine("Spawn_Enemies");
+
+        m_timer
+            .CountDownTime
+            .Where(x => x <= 0)
+            .Subscribe(_=>this.gameObject.SetActive(false))
+            .AddTo(this.gameObject);
     }
 
     IEnumerator Spawn_Enemies()
     {
-        while (true)    // ˆ—d‚½‚©‚Á‚½‚ç‚²‚ß‚ñ‚È‚³‚¢
+        while (true)    // ï¿½ï¿½ï¿½ï¿½ï¿½dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚²ï¿½ß‚ï¿½È‚ï¿½ï¿½ï¿½
         {
             if (gc.isGameStart)
             {
@@ -72,7 +79,7 @@ public class Spawn_Enemy : MonoBehaviour
 
         while (gc.isGameStart && !gc.isGameClear)
         {
-            // ƒ‰ƒ“ƒ_ƒ€‚Å“G‚ğ¶¬
+            // ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Å“Gï¿½ğ¶ï¿½
             GameObject enemy = null;
             float speed = 1.0f;
             Vector2 spawn_position = Vector2.zero;
@@ -80,7 +87,7 @@ public class Spawn_Enemy : MonoBehaviour
             float ratio_sum = 0.0f;
             for (int i = 0; i < enemyList.Count; i++)
             {
-                enemy_ratio_first[i] += enemy_ratio_diff[i] * (start_time - m_timer.CountDownTime.Value - prev_time);    // ¶¬Šm—¦‚ğXV
+                enemy_ratio_first[i] += enemy_ratio_diff[i] * (start_time - m_timer.CountDownTime.Value - prev_time);    // ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½V
                 if (enemy_ratio_first[i] < 0)
                 {
                     enemy_ratio_first[i] = 0;
@@ -101,7 +108,7 @@ public class Spawn_Enemy : MonoBehaviour
                     break;
                 }
             }
-            // ¶¬‚µ‚È‚¢ê‡
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡
             if (enemy != null)
             {
                 GameObject obj = Instantiate(enemy, spawn_position, Quaternion.identity, this.transform);
