@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
 
     // �Ƃ肠����private
     protected int hp = 1;
-    protected float speed = 1.0f;
+    public float speed = 1.0f;
     //private float attack = 1.0f;
 
     protected Rigidbody2D m_rig;

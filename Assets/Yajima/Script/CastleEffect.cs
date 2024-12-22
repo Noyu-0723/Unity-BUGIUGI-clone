@@ -31,28 +31,27 @@ public class CastleEffect : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // 爆発エフェクトのスポーン
     public void SpawnExplosion(int id)
     {
-        //if (GameController.instance.GameOver)
+        switch (id)
         {
-            anim.enabled = true;
-
-            switch (id)
-            {
-                case 1: Instantiate(explosion, spawner[0].transform.position, Quaternion.identity); break;
-                case 2: Instantiate(explosion, spawner[1].transform.position, Quaternion.identity); break;
-                case 3: Instantiate(explosion, spawner[2].transform.position, Quaternion.identity); break;
-                case 4: Instantiate(explosion, spawner[3].transform.position, Quaternion.identity); break;
-                case 5: Instantiate(explosion, spawner[4].transform.position, Quaternion.identity); break;
-                case 6: Instantiate(explosion, spawner[5].transform.position, Quaternion.identity); break;
-                default: break;
-            }
+            case 1: Instantiate(explosion, spawner[0].transform.position, Quaternion.identity); break;
+            case 2: Instantiate(explosion, spawner[1].transform.position, Quaternion.identity); break;
+            case 3: Instantiate(explosion, spawner[2].transform.position, Quaternion.identity); break;
+            case 4: Instantiate(explosion, spawner[3].transform.position, Quaternion.identity); break;
+            case 5: Instantiate(explosion, spawner[4].transform.position, Quaternion.identity); break;
+            case 6: Instantiate(explosion, spawner[5].transform.position, Quaternion.identity); break;
+            default: break;
         }
     }
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if(collision.gameObject.CompareTag("Enemy"))
+		{
+            GameController.instance.Switch_GameOver();  // isGameOverをtrueにする
+            anim.enabled = true;                        // アニメーション再生
+        }
+	}
 }
