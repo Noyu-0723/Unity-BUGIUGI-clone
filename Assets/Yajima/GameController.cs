@@ -104,16 +104,19 @@ public class GameController : MonoBehaviour
         isGameOver = true;
     }
 
-    // �Q�[���I���֐�
+    /// <summary>
+    /// ゲーム終了関数
+    /// </summary>
     public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        //���̃R�[�h�Ńr���h�����Q�[�����I�����邱�Ƃ��ł���
+        //このコードでビルドしたゲームを終了することができる
         Application.Quit();
 #endif
     }
+
 
     // BGMを再生
     public void StartMusic(AudioSource audio){
