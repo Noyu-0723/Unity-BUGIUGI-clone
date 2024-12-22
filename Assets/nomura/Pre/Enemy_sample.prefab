@@ -135,10 +135,12 @@ MonoBehaviour:
   m_question_mark: {fileID: 7303296950240436910}
   m_spawnPosition: {x: 10, y: -1}
   isTargeting: 0
+  speed: 1
   _tmp_isPositionChanged: 0
   sensor: {fileID: 5973125236483613885}
   attackJDG: {fileID: 7975738747403935604}
   attackBeforeDuration: 0.68
+  changeObj: {fileID: 4727933101026138119, guid: 8e2975ebda388e8469c26715ddbeafa7, type: 3}
 --- !u!61 &855209566287383134
 BoxCollider2D:
   m_ObjectHideFlags: 0

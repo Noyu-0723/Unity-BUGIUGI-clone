@@ -304,6 +304,7 @@ MonoBehaviour:
   sensor: {fileID: 3232535873193704478}
   attackJDG: {fileID: 4912703707849634676}
   attackBeforeDuration: 0.5
+  changeObj: {fileID: 4727933101026138119, guid: 8e2975ebda388e8469c26715ddbeafa7, type: 3}
   m_move_wave_amp: 0.1
   m_move_wave_freq: 20
 --- !u!95 &2663149428061132480
