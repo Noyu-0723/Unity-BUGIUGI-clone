@@ -51,6 +51,7 @@ public class ShieldEnemyController : Enemy
          .Subscribe(_=>
          {
             TakeDamage(1);
+            speed = 0.0f;
             _dieSubject.OnNext("ShieldEnemy");
          })
          .AddTo(this.gameObject);
