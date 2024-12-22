@@ -26,13 +26,15 @@ public class Enemy : MonoBehaviour
 
     // ‚Æ‚è‚ ‚¦‚¸private
     protected int hp = 1;
-    protected float speed = 1.0f;
+    public float speed = 1.0f;
     //private float attack = 1.0f;
 
     protected Rigidbody2D m_rig;
     protected Animator m_animator;
     protected bool _isDead = false;
     protected bool _isAttacking = false;
+
+    protected AudioManager m_audiomanager;
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
@@ -42,6 +44,8 @@ public class Enemy : MonoBehaviour
         m_rig = this.GetComponent<Rigidbody2D>();
         m_animator = this.GetComponent<Animator>();
         Spawn();
+
+        m_audiomanager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -89,6 +93,7 @@ public class Enemy : MonoBehaviour
         if (!_isDead && !_isAttacking)
         {
             StartCoroutine("Attack_anim");
+            m_audiomanager.PlaySoundEffect(SoundEffectData.SoundEffect.PlayerDie);
         }
     }
 
