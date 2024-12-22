@@ -21,17 +21,13 @@ public class ResultWidgetController : MonoBehaviour
     private void Start()
     {
         Initialize();
-        gameObject.SetActive(false);
     }
 
 	private void Update()
 	{
-        if (GameController.instance.isGameClear || GameController.instance.isGameOver)
-        {
-            gameObject.SetActive(true);
-            View(GameController.instance.isGameClear);
-        }
-	}
+        if (GameController.instance.isGameClear && !GameController.instance.isGameOver) View(true);
+        else if (!GameController.instance.isGameClear && GameController.instance.isGameOver) View(false);
+    }
 
 	private void Initialize()
     {

@@ -31,6 +31,7 @@ public class CastleEffect : MonoBehaviour
         }
     }
 
+    // 爆発エフェクトのスポーン
     public void SpawnExplosion(int id)
     {
         switch (id)
@@ -49,8 +50,8 @@ public class CastleEffect : MonoBehaviour
 	{
 		if(collision.gameObject.CompareTag("Enemy"))
 		{
-            GameController.instance.Switch_GameOver();
-            anim.enabled = true;
+            GameController.instance.Switch_GameOver();  // isGameOverをtrueにする
+            anim.enabled = true;                        // アニメーション再生
         }
 	}
 }

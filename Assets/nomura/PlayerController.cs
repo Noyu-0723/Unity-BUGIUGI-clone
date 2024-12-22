@@ -29,6 +29,15 @@ public class PlayerController : MonoBehaviour{
     public float airAttackMoveLockBeforeDuration; // 落下攻撃の前隙
     public float defeatMoveLockDuration; // 死亡モーション中に動けないフレーム
     public float replacementCooldown; // 入れ替えスキルのクールダウン
+
+    #region 矢島
+
+    [SerializeField] private GameObject explosionObj;
+    [SerializeField] private Transform explosionSpawner;
+    private bool isExplosion = false;
+
+    #endregion
+
     void Start(){
         playerHp = playerMaxHp;
         playerAttack = 1;
@@ -179,8 +188,19 @@ public class PlayerController : MonoBehaviour{
         newPosition.y = respawnPosition.y;
         this.transform.position = newPosition;
         explosionSE.Play();
+        if(!isExplosion)
+		{
+            isExplosion = true;
+            Instantiate(explosionObj, explosionSpawner.position, Quaternion.identity);
+            Invoke("Switch_Bool", 2.0f);
+        }
         airAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         airAttackCollider2D.gameObject.SetActive(false);
     }
+
+    private void Switch_Bool()
+	{
+        isExplosion = false;
+	}
 }
