@@ -35,4 +35,13 @@ public class TimerManager : MonoBehaviour
             .Subscribe(x => _countDownTime.Value = x)
             .AddTo(this.gameObject);
     }
+
+	private void Update()
+	{
+        //Debug.Log(_countDownTime.Value);
+		if(_countDownTime.Value <= 0.1f)
+		{
+            GameController.instance.isGameClear = true;
+		}
+	}
 }

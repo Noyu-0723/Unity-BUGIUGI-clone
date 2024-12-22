@@ -25,8 +25,8 @@ public class ResultWidgetController : MonoBehaviour
 
 	private void Update()
 	{
-        if (GameController.instance.isGameClear && !GameController.instance.isGameOver) View(true);
-        else if (!GameController.instance.isGameClear && GameController.instance.isGameOver) View(false);
+        if (GameController.instance.isGameClear) View(true);
+        else if (GameController.instance.isGameOver) View(false);
     }
 
 	private void Initialize()

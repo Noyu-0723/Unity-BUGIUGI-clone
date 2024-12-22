@@ -198,7 +198,6 @@ public class PlayerController : MonoBehaviour{
         yield return new WaitForSeconds(0.1f);
         newPosition.y = respawnPosition.y;
         this.transform.position = newPosition;
-<<<<<<< HEAD
         explosionSE.Play();
         if(!isExplosion)
 		{
@@ -206,24 +205,17 @@ public class PlayerController : MonoBehaviour{
             Instantiate(explosionObj, explosionSpawner.position, Quaternion.identity);
             Invoke("Switch_Bool", 2.0f);
         }
-=======
-
->>>>>>> origin/Develop_PlayerController
         airAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         airAttackCollider2D.gameObject.SetActive(false);
     }
-
-<<<<<<< HEAD
     private void Switch_Bool()
 	{
         isExplosion = false;
 	}
-=======
     private void PlaySE(AudioSource audio){
         nowSE = audio;
         nowSE.gameObject.SetActive(true);
         nowSE.Play();
     }
->>>>>>> origin/Develop_PlayerController
 }
