@@ -299,9 +299,10 @@ MonoBehaviour:
   m_question_mark: {fileID: 5857462544349930550}
   m_spawnPosition: {x: 10, y: -1}
   isTargeting: 0
+  speed: 1
   _tmp_isPositionChanged: 0
   sensor: {fileID: 3232535873193704478}
-  attackJDG: {fileID: 0}
+  attackJDG: {fileID: 4912703707849634676}
   attackBeforeDuration: 0.5
   m_move_wave_amp: 0.1
   m_move_wave_freq: 20

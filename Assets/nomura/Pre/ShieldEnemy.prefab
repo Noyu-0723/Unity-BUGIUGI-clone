@@ -357,7 +357,7 @@ Transform:
   m_GameObject: {fileID: 7001601242840886685}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08000002, z: 0}
+  m_LocalPosition: {x: 0.04, y: -0.08000002, z: 0}
   m_LocalScale: {x: 0.35, y: 0.4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -395,7 +395,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.40698493, y: -0.063480854}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -406,7 +406,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.18603015, y: 0.4147377}
   m_EdgeRadius: 0
 --- !u!50 &1746349477988531608
 Rigidbody2D:
@@ -540,7 +540,7 @@ Transform:
   m_GameObject: {fileID: 7679256294947870920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08000002, z: 0}
+  m_LocalPosition: {x: 0.04, y: -0.08000002, z: 0}
   m_LocalScale: {x: 0.35, y: 0.4, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -578,7 +578,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.39813742, y: -0.047997713}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -589,7 +589,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.20372516, y: 0.6253083}
   m_EdgeRadius: 0
 --- !u!50 &3688460809078032794
 Rigidbody2D:
@@ -808,7 +808,7 @@ Animator:
   m_GameObject: {fileID: 8303127733331136000}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 739240ec3c850bd449c1aae3fd751554, type: 2}
+  m_Controller: {fileID: 9100000, guid: fbd7a482e44f80f4ba4cb4cd7a7dadda, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -835,6 +835,7 @@ MonoBehaviour:
   m_question_mark: {fileID: 3813987171320765210}
   m_spawnPosition: {x: 10, y: -2}
   isTargeting: 0
+  speed: 1
   _tmp_isPositionChanged: 0
   sensor: {fileID: 4321743787806511726}
   attackJDG: {fileID: 7001601242840886685}
