@@ -78,15 +78,15 @@ public class Spawn_Enemy : MonoBehaviour
             float ratio_sum = 0.0f;
             for (int i = 0; i < enemyList.Count; i++)
             {
-                enemy_ratio_first[i] += enemy_ratio_diff[i] * (m_timer.CountDownTime.Value - prev_time);    // 生成確率を更新
+                enemy_ratio_first[i] += enemy_ratio_diff[i] * (start_time - m_timer.CountDownTime.Value - prev_time);    // 生成確率を更新
                 if (enemy_ratio_first[i] < 0)
                 {
                     enemy_ratio_first[i] = 0;
                 }
             }
-            enemy_min_time_span += enemy_min_time_span_diff * (m_timer.CountDownTime.Value - prev_time);
+            enemy_min_time_span += enemy_min_time_span_diff * (start_time - m_timer.CountDownTime.Value - prev_time);
 
-            prev_time = m_timer.CountDownTime.Value;
+            prev_time = start_time - m_timer.CountDownTime.Value;
 
             for (int i = 0; i < enemyList.Count; i++)
             {
