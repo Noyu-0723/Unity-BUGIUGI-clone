@@ -18,6 +18,7 @@ public class ShieldEnemyAnimator : MonoBehaviour
     {
         ObservableStateMachineTrigger trigger =
             _animator.GetBehaviour<ObservableStateMachineTrigger>();
+        
         trigger
             .OnStateExitAsObservable()
             .Subscribe(onStateInfo =>
@@ -26,7 +27,6 @@ public class ShieldEnemyAnimator : MonoBehaviour
                 {
                  Destroy(this.gameObject);   
                 }
-                Debug.Log((onStateInfo.StateInfo));
             }).AddTo(this);
         
         _shieldEnemy
