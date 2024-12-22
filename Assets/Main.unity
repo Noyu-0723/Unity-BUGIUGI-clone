@@ -391,28 +391,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
-      propertyPath: enemyList.Array.data[0]
-      value: 
-      objectReference: {fileID: 1069491459948046766, guid: b16448a85134bd343a67f03855f2d1e8, type: 3}
-    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
-      propertyPath: enemyList.Array.data[1]
-      value: 
-      objectReference: {fileID: 8303127733331136000, guid: f8464fa45a969b94da66a2499c7056d5, type: 3}
-    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
-      propertyPath: enemyList.Array.data[2]
-      value: 
-      objectReference: {fileID: 3502187466979891546, guid: 712cf728346bcd54fa2b8aad4db841d0, type: 3}
-    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemySpeed.Array.data[1]
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
-      propertyPath: enemy_min_time_span_final
-      value: 1
+      propertyPath: enemy_ratio_first.Array.data[0]
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
-      propertyPath: enemy_ratio_first.Array.data[0]
-      value: 0.4
+      propertyPath: enemy_ratio_first.Array.data[1]
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[0]
