@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BgmDataBase
   m_EditorClassIdentifier: 
   _BgmDataList:
-  - bgm: 0
+  - bgm: 1
     audioClip: {fileID: 8300000, guid: b7720023d9be8794ea5125204b974686, type: 3}
     volume: 1
-  - bgm: 1
+  - bgm: 0
     audioClip: {fileID: 8300000, guid: 70a22a6b6d57ad04ebf8d8afdec6f82b, type: 3}
     volume: 1
   - bgm: 2
