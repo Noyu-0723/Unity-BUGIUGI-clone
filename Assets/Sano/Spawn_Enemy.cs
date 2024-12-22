@@ -124,9 +124,10 @@ public class Spawn_Enemy : MonoBehaviour
     void Update()
     {
         // do nothing
-        if (gc.isGameClear)
+        if (GameController.instance.isGameClear)
         {
-            this.enabled = false;
+            Debug.Log("clear");
+            this.gameObject.SetActive(false);
         }
     }
 }
