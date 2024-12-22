@@ -32,6 +32,7 @@ public class Spawn_Enemy : MonoBehaviour
     private float prev_time = 0.0f;
 
     private TimerManager m_timer;
+    private GameController gc;
 
 
     // Start is called before the first frame update
@@ -53,12 +54,13 @@ public class Spawn_Enemy : MonoBehaviour
         }
         enemy_min_time_span_diff = (enemy_min_time_span_final - enemy_min_time_span) / remaining_time;
 
+        gc = GameObject.Find("GameController").GetComponent<GameController>();
+
         StartCoroutine("Spawn_Enemies");
     }
 
     IEnumerator Spawn_Enemies()
     {
-        GameController gc = GameObject.Find("GameController").GetComponent<GameController>();
         while (true)    // èàóùèdÇΩÇ©Ç¡ÇΩÇÁÇ≤ÇﬂÇÒÇ»Ç≥Ç¢
         {
             if (gc.isGameStart)
@@ -68,7 +70,7 @@ public class Spawn_Enemy : MonoBehaviour
             yield return null;
         }
 
-        while (true)
+        while (gc.isGameStart && !gc.isGameClear)
         {
             // ÉâÉìÉ_ÉÄÇ≈ìGÇê∂ê¨
             GameObject enemy = null;
@@ -102,7 +104,7 @@ public class Spawn_Enemy : MonoBehaviour
             // ê∂ê¨ÇµÇ»Ç¢èÍçá
             if (enemy != null)
             {
-                GameObject obj = Instantiate(enemy, spawn_position, Quaternion.identity);
+                GameObject obj = Instantiate(enemy, spawn_position, Quaternion.identity, this.transform);
                 obj.SetActive(true);
                 obj.GetComponent<Enemy>().speed = speed;
             }
@@ -115,5 +117,9 @@ public class Spawn_Enemy : MonoBehaviour
     void Update()
     {
         // do nothing
+        if (gc.isGameClear)
+        {
+            this.enabled = false;
+        }
     }
 }
