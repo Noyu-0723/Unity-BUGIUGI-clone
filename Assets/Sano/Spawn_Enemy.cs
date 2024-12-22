@@ -18,10 +18,16 @@ public class Spawn_Enemy : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(enemy_goblin);
+            Vector2 position = new Vector2(10.0f, -2.0f);
+            Transform t = this.transform;
+            t.position = position;
+
+            Instantiate(enemy_goblin, t);
             yield return new WaitForSeconds(enemy_time_span);
-            Instantiate(enemy_dragon);
+            GameObject obj = Instantiate(enemy_dragon);
+            obj.SetActive(false);
             yield return new WaitForSeconds(enemy_time_span);
+            obj.SetActive(true);
         }
     }
 
