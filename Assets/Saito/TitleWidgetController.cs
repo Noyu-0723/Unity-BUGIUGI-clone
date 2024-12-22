@@ -32,6 +32,7 @@ public class TitleWidgetController : MonoBehaviour
             .OnClickAsObservable()
             .Subscribe(_=>
             {
+                _audioManager.PlaySoundEffect(SoundEffectData.SoundEffect.Decision);
                 _audioManager.StopBgm();
                 _audioManager.PlayBgm(BgmData.BGM.InGame);
                 Hide();
