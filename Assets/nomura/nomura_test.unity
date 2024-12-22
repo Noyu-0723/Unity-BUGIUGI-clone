@@ -742,6 +742,22 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1169905629432816495, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169905629432816495, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169905629432816495, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169905629432816495, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2465837187687040232, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -832,7 +848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8657360512651662804, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8920714276376839845, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
       propertyPath: m_LocalPosition.x
@@ -971,6 +987,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 422722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1320545074 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1383471190394907145, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
+  m_PrefabInstance: {fileID: 1527571906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1405818556 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5094489855265872239, guid: 526b7688896bc094f9fc1c74d2e20b6b, type: 3}
@@ -984,6 +1005,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5345009255597319497, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
+      propertyPath: attackJDG
+      value: 
+      objectReference: {fileID: 1320545074}
     - target: {fileID: 6524847114452548027, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
