@@ -35,8 +35,9 @@ public class Spawn_Enemy : MonoBehaviour
     void Start()
     {
         // Å‰‚Éˆê‘Ì‚¾‚¯ƒSƒuƒŠƒ“‚ğ¶¬
-        GameObject obj = Instantiate(enemyList[0], ground_spawn_position[0], Quaternion.identity);
-        obj.GetComponent<Enemy>().speed = enemySpeed[0];
+        //GameObject obj = Instantiate(enemyList[0], ground_spawn_position[0], Quaternion.identity);
+        //obj.GetComponent<Enemy>().speed = enemySpeed[0];
+        //obj.SetActive(true);
 
         for (int i = 0; i <  enemyList.Count; i++) 
         {
@@ -76,6 +77,7 @@ public class Spawn_Enemy : MonoBehaviour
             if (enemy != null)
             {
                 GameObject obj = Instantiate(enemy, spawn_position, Quaternion.identity);
+                obj.SetActive(true);
                 obj.GetComponent<Enemy>().speed = speed;
             }
 
