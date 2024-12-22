@@ -44,24 +44,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d4cc1759d48924189b886042b556db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy_min_time_span: 5
-  enemy_min_time_span_final: 2
+  enemy_min_time_span: 3
+  enemy_min_time_span_final: 1
   enemyList:
-  - {fileID: 7705969107211947078, guid: 526b7688896bc094f9fc1c74d2e20b6b, type: 3}
-  - {fileID: 8657360512651662804, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
-  - {fileID: 8671232487356011344, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
+  - {fileID: 1069491459948046766, guid: b16448a85134bd343a67f03855f2d1e8, type: 3}
+  - {fileID: 8303127733331136000, guid: f8464fa45a969b94da66a2499c7056d5, type: 3}
+  - {fileID: 3502187466979891546, guid: 712cf728346bcd54fa2b8aad4db841d0, type: 3}
   enemySpeed:
   - 1
   - 1
   - 1
   enemy_ratio_first:
-  - 0.4
+  - 0.6
   - 0.4
   - 0
   enemy_ratio_finish:
-  - 0.2
-  - 0.2
+  - 0.6
   - 0.1
+  - 0.2
   ground_spawn_position:
   - {x: 10, y: -2.3}
   - {x: 10, y: -2.3}
