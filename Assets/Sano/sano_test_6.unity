@@ -3142,9 +3142,13 @@ MonoBehaviour:
   - {fileID: 7705969107211947078, guid: 526b7688896bc094f9fc1c74d2e20b6b, type: 3}
   - {fileID: 8671232487356011344, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
   - {fileID: 8657360512651662804, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
-  enemy_ratio:
+  enemy_ratio_first:
+  - 0.3
+  - 0
   - 0.2
-  - 0.2
+  enemy_ratio_finish:
+  - 0.1
+  - 0.3
   - 0.2
   ground_spawn_position:
   - {x: 10, y: -2}
