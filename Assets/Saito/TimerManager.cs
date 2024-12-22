@@ -29,10 +29,20 @@ public class TimerManager : MonoBehaviour
     public void StartBattleCountTime()
     {
         Observable
-            .Timer(TimeSpan.FromSeconds(0.0f), TimeSpan.FromSeconds(0.01f))
-            .Select(x => (_battleTime - x * 0.01f))
+	        .Interval(TimeSpan.FromMilliseconds(10))
+	        .Do(x=>Debug.Log(x))
+	        .Select(x => (_battleTime - x*0.01f))
             .TakeWhile(x => x >= 0)
             .Subscribe(x => _countDownTime.Value = x)
             .AddTo(this.gameObject);
     }
+
+	private void Update()
+	{
+        //Debug.Log(_countDownTime.Value);
+		if(_countDownTime.Value <= 0.1f)
+		{
+            GameController.instance.isGameClear = true;
+		}
+	}
 }

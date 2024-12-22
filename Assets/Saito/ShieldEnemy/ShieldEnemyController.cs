@@ -8,6 +8,9 @@ public class ShieldEnemyController : Enemy
    public IObservable<string> OnAttack => _attackSubject;
    private Subject<string> _attackSubject = new Subject<string>();
    
+   public IObservable<string> OnDie => _dieSubject;
+   private Subject<string> _dieSubject = new Subject<string>();
+   
    /// <summary>
    /// 
    /// </summary>
@@ -48,7 +51,8 @@ public class ShieldEnemyController : Enemy
          .Subscribe(_=>
          {
             TakeDamage(1);
-            Destroy(this.gameObject);
+            speed = 0.0f;
+            _dieSubject.OnNext("ShieldEnemy");
          })
          .AddTo(this.gameObject);
    }

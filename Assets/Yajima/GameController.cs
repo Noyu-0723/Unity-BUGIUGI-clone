@@ -12,9 +12,15 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int remaining_time;
 
-    private bool isGameStart;
-    private bool isGameClear;
-    private bool isGameOver;
+    [System.NonSerialized]
+    public bool isGameStart;
+
+    [System.NonSerialized]
+    public bool isGameClear;
+
+    [System.NonSerialized]
+    public bool isGameOver;
+
     public AudioSource titleBGM;
     public AudioSource inGameBGM;
     public AudioSource gameOverBGM;
@@ -85,16 +91,32 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // �Q�[���I���֐�
+    public void Switch_GameStart()
+	{
+        isGameStart = true;
+	}
+    public void Switch_GameClear()
+    {
+        isGameClear = true;
+    }
+    public void Switch_GameOver()
+    {
+        isGameOver = true;
+    }
+
+    /// <summary>
+    /// ゲーム終了関数
+    /// </summary>
     public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        //���̃R�[�h�Ńr���h�����Q�[�����I�����邱�Ƃ��ł���
+        //このコードでビルドしたゲームを終了することができる
         Application.Quit();
 #endif
     }
+
 
     // BGMを再生
     public void StartMusic(AudioSource audio){
