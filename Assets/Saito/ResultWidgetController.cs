@@ -23,13 +23,13 @@ public class ResultWidgetController : MonoBehaviour
         Initialize();
     }
 
-	private void Update()
-	{
-        if (GameController.instance.isGameClear) View(true);
-        else if (GameController.instance.isGameOver) View(false);
+    private void Update()
+    {
+        if (GameController.instance.isGameOver) View(false);
+        else　if (GameController.instance.isGameClear) View(true);
     }
 
-	private void Initialize()
+    private void Initialize()
     {
         _resultCanvasGroup.alpha = 0;
         _resultCanvasGroup.blocksRaycasts = false;

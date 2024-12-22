@@ -29,6 +29,9 @@ public class Spawn_Enemy : MonoBehaviour
     private float enemy_min_time_span_diff = 0.0f;
     private float remaining_time = 60.0f;    // あとでなんとかする
     private float start_time = 0.0f;
+    private float prev_time = 0.0f;
+
+    private TimerManager m_timer;
 
 
     // Start is called before the first frame update
@@ -39,12 +42,15 @@ public class Spawn_Enemy : MonoBehaviour
         //obj.GetComponent<Enemy>().speed = enemySpeed[0];
         //obj.SetActive(true);
 
+        m_timer = GameObject.Find("TimerManager").GetComponent<TimerManager>();
+        remaining_time = m_timer.CountDownTime.Value;
+        start_time = remaining_time;
+
         for (int i = 0; i <  enemyList.Count; i++) 
         {
             float diff = (enemy_ratio_finish[i] - enemy_ratio_first[i]) / remaining_time;
             enemy_ratio_diff.Add(diff);
         }
-        start_time = Time.time;
         enemy_min_time_span_diff = (enemy_min_time_span_final - enemy_min_time_span) / remaining_time;
 
         StartCoroutine("Spawn_Enemies");
@@ -72,13 +78,15 @@ public class Spawn_Enemy : MonoBehaviour
             float ratio_sum = 0.0f;
             for (int i = 0; i < enemyList.Count; i++)
             {
-                enemy_ratio_first[i] += enemy_ratio_diff[i] * enemy_min_time_span;    // 生成確率を更新
+                enemy_ratio_first[i] += enemy_ratio_diff[i] * (start_time - m_timer.CountDownTime.Value - prev_time);    // 生成確率を更新
                 if (enemy_ratio_first[i] < 0)
                 {
                     enemy_ratio_first[i] = 0;
                 }
             }
-            enemy_min_time_span += enemy_min_time_span_diff * enemy_min_time_span;
+            enemy_min_time_span += enemy_min_time_span_diff * (start_time - m_timer.CountDownTime.Value - prev_time);
+
+            prev_time = start_time - m_timer.CountDownTime.Value;
 
             for (int i = 0; i < enemyList.Count; i++)
             {

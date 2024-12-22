@@ -395,6 +395,10 @@ PrefabInstance:
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
+      propertyPath: enemy_min_time_span_final
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_first.Array.data[0]
       value: 0.5
       objectReference: {fileID: 0}
@@ -404,11 +408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[0]
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[1]
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[2]
