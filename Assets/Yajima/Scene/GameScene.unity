@@ -302,6 +302,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8596919675521186089, guid: ec60eaad40624495a8ea1ad2189a8681, type: 3}
+      propertyPath: _audioManager
+      value: 
+      objectReference: {fileID: 1304777253}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -798,7 +802,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b7720023d9be8794ea5125204b974686, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1010,7 +1014,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 46a8431796626da4b90a037a5432151f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1280,17 +1284,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPosition: {x: -7.5, y: 0}
   targetingEnemy: {fileID: 0}
-  normalAttackCollider2D: {fileID: 1701685250}
+  normalAttackRightCollider2D: {fileID: 0}
+  normalAttackLeftCollider2D: {fileID: 0}
   airAttackCollider2D: {fileID: 2022131109}
   attackSE: {fileID: 922542731}
   defeatSE: {fileID: 583663482}
   replaceSE: {fileID: 1834878257}
   explosionSE: {fileID: 2136353910}
+  crossImage: {fileID: 0}
   canMove: 1
+  isReplacementable: 1
   isTarget: 0
   isGrounded: 0
   movementSpeed: 5
-  attackMoveLockDuration: 0.8
+  attackMoveLockBeforeDuration: 0
+  attackMoveLockAfterDuration: 0
+  airAttackMoveLockBeforeDuration: 0
+  airAttackMoveLockAfterDuration: 0
   defeatMoveLockDuration: 3
   replacementCooldown: 2
 --- !u!4 &501295128
@@ -1899,6 +1909,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_sample
       objectReference: {fileID: 0}
+    - target: {fileID: 7705969107211947078, guid: 526b7688896bc094f9fc1c74d2e20b6b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2300,7 +2314,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 70a22a6b6d57ad04ebf8d8afdec6f82b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -3324,6 +3338,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1304777252
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6871505621371350909, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7752039272024436116, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+--- !u!114 &1304777253 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7632344634577033414, guid: 9653acdcd9bf34df6bfef4a066c3f9b2, type: 3}
+  m_PrefabInstance: {fileID: 1304777252}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef409e1e35cf46d48953638bf20a186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1314422095
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,6 +3861,10 @@ PrefabInstance:
     - target: {fileID: 8671232487356011344, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
       propertyPath: m_Name
       value: Enemy_sample2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671232487356011344, guid: 355dc0ecdab8d7046a0de7c70f43bfbb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5055,6 +5141,7 @@ MonoBehaviour:
   _resultCanvasGroup: {fileID: 1992395890}
   _hideDuration: 0.5
   _startButton: {fileID: 1542013419}
+  _audioManager: {fileID: 1304777253}
 --- !u!1 &2022131108
 GameObject:
   m_ObjectHideFlags: 0
@@ -5823,3 +5910,4 @@ SceneRoots:
   - {fileID: 1403226850}
   - {fileID: 653358205}
   - {fileID: 619582272}
+  - {fileID: 1304777252}
