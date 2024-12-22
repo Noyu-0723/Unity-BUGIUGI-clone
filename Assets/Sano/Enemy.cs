@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/* ƒƒ‚
- * EÅ‰‚Ídisable‚É‚µ‚Äinstantiate, OnEnable‚Å“®‚«n‚ß‚é‚æ‚¤‚É‚·‚é
- * EPlayer‚Æ‚Ì‚â‚è‚Æ‚è
- * @EisTargeting    // ƒ^[ƒQƒbƒg‚·‚é‚Æ‚«‚ÉŒÄ‚Ño‚·
- * @Evoid PositionChanged()    // ƒvƒŒƒCƒ„[‚Æ‚ÌÀ•W‚Ì“ü‚ê‘Ö‚¦‚ª‹N‚±‚Á‚½‚ÉŒÄ‚Ño‚·
+/* ï¿½ï¿½ï¿½ï¿½
+ * ï¿½Eï¿½Åï¿½ï¿½ï¿½disableï¿½É‚ï¿½ï¿½ï¿½instantiate, OnEnableï¿½Å“ï¿½ï¿½ï¿½ï¿½nï¿½ß‚ï¿½æ‚¤ï¿½É‚ï¿½ï¿½ï¿½
+ * ï¿½EPlayerï¿½Æ‚Ì‚ï¿½ï¿½Æ‚ï¿½
+ * ï¿½@ï¿½EisTargeting    // ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÉŒÄ‚Ñoï¿½ï¿½
+ * ï¿½@ï¿½Evoid PositionChanged()    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Æ‚Ìï¿½ï¿½Wï¿½Ì“ï¿½ï¿½ï¿½Ö‚ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉŒÄ‚Ñoï¿½ï¿½
  * */
 
 
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     protected Camera m_camera;
     public bool isTargeting = false;
 
-    // ‚Æ‚è‚ ‚¦‚¸private
+    // ï¿½Æ‚è‚ ï¿½ï¿½ï¿½ï¿½private
     protected int hp = 1;
     protected float speed = 1.0f;
     //private float attack = 1.0f;
@@ -35,6 +35,9 @@ public class Enemy : MonoBehaviour
     protected bool _isAttacking = false;
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
+    public EnemySensor sensor;
+    public GameObject attackJDG;
+    public float attackBeforeDuration;
 
     private void OnEnable()
     {
@@ -56,19 +59,23 @@ public class Enemy : MonoBehaviour
         Move();
         Targeting();
 
-        // ˆÈ‰ºƒfƒoƒbƒO—p
+        // ï¿½È‰ï¿½ï¿½fï¿½oï¿½bï¿½Oï¿½p
         if (_tmp_isPositionChanged)
         {
             PositionChanged();
             _tmp_isPositionChanged = false;
         }
+
+        if(sensor.isAttackOther){
+            AttackPlayer();
+        }
     }
 
-    // ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µ‚½‚Æ‚«‚Ìˆ—
-    // OnEnable()‚©‚çŒÄ‚Ño‚·
+    // ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½
+    // OnEnable()ï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½
     protected virtual void Spawn()
     {
-        // ƒXƒ|[ƒ“‚ÌêŠ‚ğw’è
+        // ï¿½Xï¿½|ï¿½[ï¿½ï¿½ï¿½ÌêŠï¿½ï¿½ï¿½wï¿½ï¿½
         //Vector2 spawnPosition = m_camera.ViewportToWorldPoint(new Vector2(1.0f, 0.5f));
         m_spawnPosition.y = m_rig.position.y;
 
@@ -77,32 +84,39 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Move()
     {
-        // ‚Ğ‚Æ‚Ü‚¸À•W‚ğ’¼ÚXV‚·‚é•û®‚É‚·‚é
+        // ï¿½Ğ‚Æ‚Ü‚ï¿½ï¿½ï¿½ï¿½Wï¿½ğ’¼ÚXï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
         m_rig.position += new Vector2(-speed * Time.deltaTime, 0);
     }
 
-    // ƒvƒŒƒCƒ„[‚ÉƒAƒ^ƒbƒN‚·‚é
-    // ƒvƒŒƒCƒ„[‘¤‚©‚ç‚Ì”íƒ_ƒ‚ÍƒvƒŒƒCƒ„[©g‚ÅŠ®Œ‹‚·‚é‚½‚ßAƒAƒ^ƒbƒN‚Ìƒ‚[ƒVƒ‡ƒ“‚¾‚¯Às‚·‚é
+    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÉƒAï¿½^ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
+    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì”ï¿½_ï¿½ï¿½ï¿½Íƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½gï¿½ÅŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚½ï¿½ßAï¿½Aï¿½^ï¿½bï¿½Nï¿½Ìƒï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
     protected void AttackPlayer()
     {
-        // UŒ‚‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs
+        // ï¿½Uï¿½ï¿½ï¿½ÌƒAï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
         if (!_isDead && !_isAttacking)
         {
             StartCoroutine("Attack_anim");
+            StartCoroutine(AttackRange(attackBeforeDuration));
         }
     }
+    IEnumerator AttackRange(float before){
+        yield return new WaitForSeconds(before);
+        attackJDG.SetActive(true);
+        yield return new WaitForSeconds(0.001f);
+        attackJDG.SetActive(false);
+    }
 
-    // é‚ÉUŒ‚‚·‚é
+    // ï¿½ï¿½ÉUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     protected void AttackCastle()
     {
-        // é‚ÉÕ“Ë
-        // ƒQ[ƒ€ƒI[ƒo[‚É‚·‚éH
+        // ï¿½ï¿½ÉÕ“ï¿½
+        // ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[ï¿½É‚ï¿½ï¿½ï¿½H
     }
 
     protected void Dead()
     {
         m_rig.constraints = RigidbodyConstraints2D.FreezePosition;
-        //  €‚ñ‚¾‚Æ‚«‚Ì“®ì‚ğ‚±‚±‚É‘‚­
+        //  ï¿½ï¿½ï¿½ñ‚¾‚Æ‚ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éï¿½ï¿½ï¿½
         if (!_isDead)
         {
             m_animator.SetBool("Die", true);
@@ -143,7 +157,7 @@ public class Enemy : MonoBehaviour
 
     
 
-    // ƒvƒŒƒCƒ„[‚©‚ç‚Ìƒ_ƒ[ƒW‚ğó‚¯‚éiPlayer‚©‚çŒÄ‚Ño‚µj
+    // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Ìƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ó‚¯‚ï¿½iPlayerï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½j
     protected void TakeDamage(int ap)
     {
         this.hp -= ap;
@@ -154,7 +168,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // ƒ^[ƒQƒbƒg‚³‚ê‚½‚ÉŒÄ‚Î‚ê‚é
+    // ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½ÉŒÄ‚Î‚ï¿½ï¿½
     public void Targeting()
     {
         if (isTargeting && !m_target_mark.activeSelf)
@@ -169,31 +183,23 @@ public class Enemy : MonoBehaviour
 
     public virtual void PositionChanged()
     {
-        // À•W‚ª“ü‚ê‘Ö‚í‚Á‚½‚Ì‚Í‚Ä‚Èƒ}[ƒN
+        // ï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Í‚Ä‚Èƒ}ï¿½[ï¿½N
         StartCoroutine("SetQuestionMark");
     }
 
 
 
-    // Õ“Ë‘Šè‚Ì”»’è‚ÍTag‚Å
+    // ï¿½Õ“Ë‘ï¿½ï¿½ï¿½Ì”ï¿½ï¿½ï¿½ï¿½Tagï¿½ï¿½
     // Player or Castle
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
 
-        GameObject opponent = collision.gameObject;    // Õ“Ë‘Šè‚ğæ“¾
+        GameObject opponent = collision.gameObject;    // ï¿½Õ“Ë‘ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
         Collider2D other = opponent.GetComponent<Collider2D>();
 
         if (other.CompareTag("Attack"))
         {
             TakeDamage(1);
-        }
-        else if (other.CompareTag("Player"))
-        {
-            AttackPlayer();
-        }
-        else if (other.CompareTag("Castle"))
-        {
-            AttackCastle();
         }
     }
 }
