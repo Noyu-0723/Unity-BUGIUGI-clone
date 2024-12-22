@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d10a30716a643c59b7e17518ad4708, type: 3}
+  m_Name: SoundEffectData Base
+  m_EditorClassIdentifier: 
+  _SoundEffectDataList:
+  - soundEffect: 0
+    audioClip: {fileID: 8300000, guid: 20820fdd2f21b8741a81b2bfaa451d2c, type: 3}
+    volume: 1
+  - soundEffect: 1
+    audioClip: {fileID: 8300000, guid: 55ba73708e7a0534ab2a41ebf017ef60, type: 3}
+    volume: 1
+  - soundEffect: 2
+    audioClip: {fileID: 8300000, guid: 1dd575de523b3354c85e4145a9c0a1ab, type: 3}
+    volume: 1
+  - soundEffect: 4
+    audioClip: {fileID: 8300000, guid: 1898afdde2175454dae9274465411ddf, type: 3}
+    volume: 1
+  - soundEffect: 5
+    audioClip: {fileID: 8300000, guid: 3bf328e1e590e02429b74e6ff5272df5, type: 3}
+    volume: 1
+  - soundEffect: 6
+    audioClip: {fileID: 8300000, guid: 5eca1abf3f4325c4c936284e4a440ade, type: 3}
+    volume: 1
+  - soundEffect: 8
+    audioClip: {fileID: 8300000, guid: 9af0460d6cdc33949b8909cc1f12a017, type: 3}
+    volume: 1
+  - soundEffect: 9
+    audioClip: {fileID: 8300000, guid: e60d5b83e952f42c599b0883c0b40677, type: 3}
+    volume: 1
