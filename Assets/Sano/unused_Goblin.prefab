@@ -284,6 +284,7 @@ MonoBehaviour:
   m_spawnPosition: {x: 10, y: -2.3}
   isTargeting: 0
   _tmp_isPositionChanged: 0
+  changeObj: {fileID: 4727933101026138119, guid: 8e2975ebda388e8469c26715ddbeafa7, type: 3}
 --- !u!1 &5023039024414495924
 GameObject:
   m_ObjectHideFlags: 0

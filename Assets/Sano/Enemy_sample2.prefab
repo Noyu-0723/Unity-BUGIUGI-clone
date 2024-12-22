@@ -263,6 +263,7 @@ MonoBehaviour:
   m_spawnPosition: {x: 10, y: -1}
   isTargeting: 0
   _tmp_isPositionChanged: 0
+  changeObj: {fileID: 4727933101026138119, guid: 8e2975ebda388e8469c26715ddbeafa7, type: 3}
   m_move_wave_amp: 0.1
   m_move_wave_freq: 20
 --- !u!95 &8588686445129959450

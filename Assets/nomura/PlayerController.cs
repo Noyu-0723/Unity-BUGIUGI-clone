@@ -36,7 +36,10 @@ public class PlayerController : MonoBehaviour{
     #region 矢島
 
     [SerializeField] private GameObject explosionObj;
+    [SerializeField] private GameObject changeObj;
+    [SerializeField] private GameObject slashObj;
     [SerializeField] private Transform explosionSpawner;
+    [SerializeField] private Transform slashSpawner;
     private bool isExplosion = false;
 
     #endregion
@@ -105,6 +108,7 @@ public class PlayerController : MonoBehaviour{
     private void HandleReplacement(){
         if(!isReplacementable) return;
         if(Input.GetMouseButtonDown(1) && isTarget){
+            Instantiate(changeObj, gameObject.transform.position, Quaternion.identity);
             PlaySE(replaceSE);
             targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
@@ -217,5 +221,10 @@ public class PlayerController : MonoBehaviour{
         nowSE = audio;
         nowSE.gameObject.SetActive(true);
         nowSE.Play();
+    }
+
+    public void SlashAnim()
+	{
+        Instantiate(slashObj, slashSpawner.position, Quaternion.identity);
     }
 }

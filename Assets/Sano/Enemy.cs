@@ -36,7 +36,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private bool _tmp_isPositionChanged = false;
 
-    private void OnEnable()
+    #region –î“‡
+
+    [SerializeField] private GameObject changeObj;
+
+	#endregion
+
+	private void OnEnable()
     {
         m_camera = GameObject.Find("Main Camera").GetComponent<Camera>();//Camera.current;
         m_rig = this.GetComponent<Rigidbody2D>();
@@ -119,6 +125,7 @@ public class Enemy : MonoBehaviour
 
     IEnumerator SetQuestionMark()
     {
+        Instantiate(changeObj, gameObject.transform.position, Quaternion.identity);
         m_question_mark.SetActive(true);
         float tmp_speed = this.speed;
         this.speed = 0.0f;
