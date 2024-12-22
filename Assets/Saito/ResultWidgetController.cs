@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class ResultWidgetController : MonoBehaviour
@@ -17,23 +18,18 @@ public class ResultWidgetController : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     [SerializeField] private ResultWidget _resultWidget;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [SerializeField] private AudioManager _audioManager;
     
     private void Start()
     {
         Initialize();
-        gameObject.SetActive(false);
     }
 
-	private void Update()
-	{
-        if (GameController.instance.isGameClear || GameController.instance.isGameOver)
-        {
-            gameObject.SetActive(true);
-            View(GameController.instance.isGameClear);
-        }
-	}
-
-	private void Initialize()
+    private void Initialize()
     {
         _resultCanvasGroup.alpha = 0;
         _resultCanvasGroup.blocksRaycasts = false;
@@ -50,5 +46,8 @@ public class ResultWidgetController : MonoBehaviour
         AnimationUtility.FadeInCanvasGroupTween(_resultCanvasGroup,_viewDuration);
         _resultCanvasGroup.blocksRaycasts = true;
         _resultCanvasGroup.interactable = true;
+        
+        _audioManager.StopBgm();
+        _audioManager.PlayBgm(BgmData.BGM.Result);
     }
 }

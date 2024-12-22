@@ -19,11 +19,23 @@ public class TitleWidgetController : MonoBehaviour
     /// </summary>
     [SerializeField] private Button _startButton;
     
+    /// <summary>
+    /// 
+    /// </summary>
+    [SerializeField] private AudioManager _audioManager;
+    
     private void Start()
     {
+        _audioManager.PlayBgm(BgmData.BGM.Title);
+        
         _startButton
             .OnClickAsObservable()
-            .Subscribe(_=>Hide())
+            .Subscribe(_=>
+            {
+                _audioManager.StopBgm();
+                _audioManager.PlayBgm(BgmData.BGM.InGame);
+                Hide();
+            })
             .AddTo(this.gameObject);
     }
 
