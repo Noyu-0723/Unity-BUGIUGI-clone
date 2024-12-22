@@ -19,5 +19,10 @@ public class ShieldEnemyAnimator : MonoBehaviour
             .OnAttack
             .Subscribe(_=> _animator.SetTrigger("AttackTrigger"))
             .AddTo(this.gameObject);
+
+        _shieldEnemy
+            .OnDie
+            .Subscribe(_=>_animator.SetTrigger("DieTrigger"))
+            .AddTo(this.gameObject);
     }
 }
