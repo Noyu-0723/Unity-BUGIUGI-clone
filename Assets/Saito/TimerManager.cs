@@ -33,8 +33,8 @@ public class TimerManager : MonoBehaviour
     /// </summary>
     public void StartBattleCountTime()
     {
-        Observable
-	        .Interval(TimeSpan.FromMilliseconds(10))
+	    Observable
+		    .Timer(TimeSpan.FromMilliseconds(0),TimeSpan.FromMilliseconds(10), Scheduler.MainThreadIgnoreTimeScale)
 	        .Do(x=>Debug.Log(x))
 	        .Select(x => (_battleTime - x*0.01f))
             .TakeWhile(x => x >= 0)
