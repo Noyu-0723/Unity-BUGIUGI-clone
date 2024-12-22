@@ -21,11 +21,19 @@ public class ResultWidgetController : MonoBehaviour
     private void Start()
     {
         Initialize();
-        
-        View(true);
+        gameObject.SetActive(false);
     }
 
-    private void Initialize()
+	private void Update()
+	{
+        if (GameController.instance.isGameClear || GameController.instance.isGameOver)
+        {
+            gameObject.SetActive(true);
+            View(GameController.instance.isGameClear);
+        }
+	}
+
+	private void Initialize()
     {
         _resultCanvasGroup.alpha = 0;
         _resultCanvasGroup.blocksRaycasts = false;

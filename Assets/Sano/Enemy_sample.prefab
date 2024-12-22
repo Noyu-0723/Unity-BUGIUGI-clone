@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_target_mark: {fileID: 7771870748695841367}
   m_question_mark: {fileID: 2532964130919451951}
-  m_spawnPosition: {x: 10, y: -1}
+  m_spawnPosition: {x: 10, y: -2.5}
   isTargeting: 0
   _tmp_isPositionChanged: 0
 --- !u!61 &902593710506399961

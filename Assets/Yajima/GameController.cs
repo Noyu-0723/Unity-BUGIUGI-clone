@@ -12,9 +12,15 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int remaining_time;
 
-    private bool isGameStart;
-    private bool isGameClear;
-    private bool isGameOver;
+    [System.NonSerialized]
+    public bool isGameStart;
+
+    [System.NonSerialized]
+    public bool isGameClear;
+
+    [System.NonSerialized]
+    public bool isGameOver;
+
     public AudioSource titleBGM;
     public AudioSource inGameBGM;
     public AudioSource gameOverBGM;
@@ -83,6 +89,19 @@ public class GameController : MonoBehaviour
             StopMusic();
             StartMusic(gameOverBGM);
         }
+    }
+
+    public void Switch_GameStart()
+	{
+        isGameStart = true;
+	}
+    public void Switch_GameClear()
+    {
+        isGameClear = true;
+    }
+    public void Switch_GameOver()
+    {
+        isGameOver = true;
     }
 
     // �Q�[���I���֐�
