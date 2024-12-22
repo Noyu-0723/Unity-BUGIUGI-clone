@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d4cc1759d48924189b886042b556db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy_min_time_span: 3
+  enemy_min_time_span: 4
   enemy_min_time_span_final: 1
   enemyList:
   - {fileID: 1069491459948046766, guid: b16448a85134bd343a67f03855f2d1e8, type: 3}
@@ -52,18 +52,18 @@ MonoBehaviour:
   - {fileID: 3502187466979891546, guid: 712cf728346bcd54fa2b8aad4db841d0, type: 3}
   enemySpeed:
   - 1
-  - 1
+  - 0.8
   - 1
   enemy_ratio_first:
-  - 0.6
-  - 0.4
+  - 0.5
+  - 0.3
   - 0
   enemy_ratio_finish:
-  - 0.6
-  - 0.1
+  - 0.4
   - 0.2
+  - 0.1
   ground_spawn_position:
   - {x: 10, y: -2.3}
   - {x: 10, y: -2.3}
   - {x: 10, y: 3}
-  speed_range: 0.2
+  speed_range: 0.4
