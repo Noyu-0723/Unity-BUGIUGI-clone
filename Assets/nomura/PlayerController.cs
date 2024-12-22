@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour{
     private Collider2D playerCollider2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private AudioSource nowSE;
     public Vector2 respawnPosition; // リスポーン地点
     public Enemy targetingEnemy = null; // 現在ターゲティングしている敵
     public Collider2D normalAttackRightCollider2D; // 通常攻撃のコリジョン
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour{
     public AudioSource defeatSE; // 敗北時のSE
     public AudioSource replaceSE; // 入れ替わり時のSE
     public AudioSource explosionSE; // 落下攻撃時のSE
+    public GameObject crossImage; // 入れ替えのクールタイム可視化用画像
     public bool canMove = true; // 移動可能なのかどうか
     public bool isReplacementable = true; // 入れ替え可能なのかどうか
     public bool isTarget = false; // 敵をターゲティングしているのかどうか
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour{
     public float attackMoveLockBeforeDuration; // 攻撃の前隙
     public float attackMoveLockAfterDuration; // 攻撃の後隙
     public float airAttackMoveLockBeforeDuration; // 落下攻撃の前隙
+    public float airAttackMoveLockAfterDuration; // 落下攻撃の後隙
     public float defeatMoveLockDuration; // 死亡モーション中に動けないフレーム
     public float replacementCooldown; // 入れ替えスキルのクールダウン
 
@@ -80,14 +83,15 @@ public class PlayerController : MonoBehaviour{
     private void HandleAirMovement(){
         animator.SetBool("isWalking", false);
         animator.Play("SpecialAttack");
-        StartCoroutine(AirAttack(airAttackMoveLockBeforeDuration));
+        StartCoroutine(MoveLock(airAttackMoveLockBeforeDuration + airAttackMoveLockAfterDuration));
+        StartCoroutine(AirAttack(airAttackMoveLockBeforeDuration, airAttackMoveLockAfterDuration));
     }
     // 敵のターゲティング
     private void HandleEnemyTarget(){
         if(Input.GetMouseButtonDown(0)){
             if(targetingEnemy != null) targetingEnemy.isTargeting = false; // 敵のターゲットをリセット
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D hitCollider = Physics2D.OverlapCircle(mousePosition, 0.3f);
+            Collider2D hitCollider = Physics2D.OverlapCircle(mousePosition, 0.1f);
             if(hitCollider != null && hitCollider.CompareTag("Enemy")){
                 targetingEnemy = hitCollider.GetComponent<Enemy>();
                 isTarget = true;
@@ -101,7 +105,7 @@ public class PlayerController : MonoBehaviour{
     private void HandleReplacement(){
         if(!isReplacementable) return;
         if(Input.GetMouseButtonDown(1) && isTarget){
-            replaceSE.Play();
+            PlaySE(replaceSE);
             targetingEnemy.PositionChanged();
             Vector2 enemyPosition = targetingEnemy.transform.position;
             targetingEnemy.transform.position = this.transform.position;
@@ -121,7 +125,7 @@ public class PlayerController : MonoBehaviour{
     private void HandleCheckDeath(){
         if(playerHp <= 0){
             animator.Play("Die");
-            defeatSE.Play();
+            PlaySE(defeatSE);
             StartCoroutine(MoveLock(defeatMoveLockDuration));
             StartCoroutine(Respawn(defeatMoveLockDuration));
         }
@@ -156,8 +160,10 @@ public class PlayerController : MonoBehaviour{
     // 入れ替え不能状態
     IEnumerator SkillLock(float duration){
         isReplacementable = false;
+        crossImage.SetActive(true);
         yield return new WaitForSeconds(duration);
         isReplacementable = true;
+        crossImage.SetActive(false);
     }
     // リスポーン
     IEnumerator Respawn(float duration){
@@ -169,7 +175,7 @@ public class PlayerController : MonoBehaviour{
     // 通常攻撃の判定処理
     IEnumerator NormalAttack(float before, float after){
         yield return new WaitForSeconds(before);
-        attackSE.Play();
+        PlaySE(attackSE);
         if(!spriteRenderer.flipX){
             normalAttackRightCollider2D.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.1f);
@@ -182,11 +188,17 @@ public class PlayerController : MonoBehaviour{
         yield return new WaitForSeconds(after);
     }
     // 落下攻撃の判定処理
-    IEnumerator AirAttack(float duration){
-        yield return new WaitForSeconds(duration);
+    IEnumerator AirAttack(float before, float after){
+        yield return new WaitForSeconds(before);
+        PlaySE(explosionSE);
+        // 落下仮実装
         Vector3 newPosition = this.transform.position;
+        newPosition.y = (respawnPosition.y + newPosition.y) / 2;
+        this.transform.position = newPosition;
+        yield return new WaitForSeconds(0.1f);
         newPosition.y = respawnPosition.y;
         this.transform.position = newPosition;
+<<<<<<< HEAD
         explosionSE.Play();
         if(!isExplosion)
 		{
@@ -194,13 +206,24 @@ public class PlayerController : MonoBehaviour{
             Instantiate(explosionObj, explosionSpawner.position, Quaternion.identity);
             Invoke("Switch_Bool", 2.0f);
         }
+=======
+
+>>>>>>> origin/Develop_PlayerController
         airAttackCollider2D.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         airAttackCollider2D.gameObject.SetActive(false);
     }
 
+<<<<<<< HEAD
     private void Switch_Bool()
 	{
         isExplosion = false;
 	}
+=======
+    private void PlaySE(AudioSource audio){
+        nowSE = audio;
+        nowSE.gameObject.SetActive(true);
+        nowSE.Play();
+    }
+>>>>>>> origin/Develop_PlayerController
 }
