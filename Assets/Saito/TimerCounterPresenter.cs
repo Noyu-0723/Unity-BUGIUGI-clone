@@ -33,7 +33,7 @@ public class TimerCounterPresenter : MonoBehaviour
             if(num <= 0)
 			{
                 num = 1;
-                _timerManager.StartBattleCountTime();
+                //_timerManager.StartBattleCountTime();
             }
         }
     }

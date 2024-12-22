@@ -18,11 +18,16 @@ public class TimerManager : MonoBehaviour
    /// </summary>
     private float _battleTime;
 
+    private GameController gc;
+    private bool _running = false;
+
     private void Start()
     {
         _battleTime = _countDownTime.Value;
+        gc = GameObject.Find("GameController").GetComponent<GameController>();
     }
-    
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -44,5 +49,11 @@ public class TimerManager : MonoBehaviour
 		{
             GameController.instance.isGameClear = true;
 		}
-	}
+
+        if (gc.isGameStart && !_running)
+        {
+            StartBattleCountTime();
+            _running = true;
+        }
+    }
 }

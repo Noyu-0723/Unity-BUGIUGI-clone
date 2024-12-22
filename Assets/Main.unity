@@ -395,6 +395,10 @@ PrefabInstance:
       value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
+      propertyPath: enemy_min_time_span_final
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_first.Array.data[0]
       value: 0.5
       objectReference: {fileID: 0}
@@ -404,11 +408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[0]
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[1]
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2040356347778506531, guid: 3cdf934f62b618146b71554bc6d3696b, type: 3}
       propertyPath: enemy_ratio_finish.Array.data[2]
@@ -532,6 +536,10 @@ PrefabInstance:
       propertyPath: resultButton
       value: 
       objectReference: {fileID: 793924209}
+    - target: {fileID: 8988993251947263079, guid: ec60eaad40624495a8ea1ad2189a8681, type: 3}
+      propertyPath: _audioManager
+      value: 
+      objectReference: {fileID: 208093761}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4153,6 +4161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e136579aadfd4cc7b8f87e1c08eb902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioManager: {fileID: 0}
   _quiteButton: {fileID: 1600531279}
 --- !u!114 &1600531279
 MonoBehaviour:
