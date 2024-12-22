@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour{
     private int playerMaxHp = 1;
     private int playerHp;
-    private int playerAttack; 
+    // private int playerAttack = 1; 
     private Rigidbody2D rb;
     private Collider2D playerCollider2D;
     private Animator animator;
@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour{
 
     void Start(){
         playerHp = playerMaxHp;
-        playerAttack = 1;
         rb = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         animator = GetComponent<Animator>();
@@ -68,12 +67,11 @@ public class PlayerController : MonoBehaviour{
         Vector3 myPosition = this.transform.position;
         bool isPressingLeft = Input.GetKey(KeyCode.A);
         bool isPressingRight = Input.GetKey(KeyCode.D);
-        if(isPressingRight){
+        if(isPressingRight && myPosition.x < 8.5f){
             spriteRenderer.flipX = false;
             animator.SetBool("isWalking", true);
             myPosition.x += movementSpeed * Time.deltaTime;
-        }
-        else if(isPressingLeft){
+        }else if(isPressingLeft && myPosition.x > -8.5f){
             spriteRenderer.flipX = true;
             animator.SetBool("isWalking", true);
             myPosition.x -= movementSpeed * Time.deltaTime;
