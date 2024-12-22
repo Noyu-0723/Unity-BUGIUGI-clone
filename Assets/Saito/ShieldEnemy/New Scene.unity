@@ -292,17 +292,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPosition: {x: -7.5, y: 0}
   targetingEnemy: {fileID: 0}
-  normalAttackCollider2D: {fileID: 649968467}
+  normalAttackRightCollider2D: {fileID: 0}
+  normalAttackLeftCollider2D: {fileID: 0}
   airAttackCollider2D: {fileID: 1855390293}
   attackSE: {fileID: 1995212520}
   defeatSE: {fileID: 1656102778}
   replaceSE: {fileID: 1523734035}
   explosionSE: {fileID: 1114329352}
+  crossImage: {fileID: 0}
   canMove: 1
+  isReplacementable: 1
   isTarget: 0
   isGrounded: 0
   movementSpeed: 5
-  attackMoveLockDuration: 0.8
+  attackMoveLockBeforeDuration: 0
+  attackMoveLockAfterDuration: 0
+  airAttackMoveLockBeforeDuration: 0
+  airAttackMoveLockAfterDuration: 0
   defeatMoveLockDuration: 3
   replacementCooldown: 2
 --- !u!4 &643187481
@@ -1254,6 +1260,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 513228440552794608, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fbd7a482e44f80f4ba4cb4cd7a7dadda, type: 2}
     - target: {fileID: 5818290095179820621, guid: 4f81496b084f6446689f6dad7915a104, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.11
