@@ -7,13 +7,22 @@ public class QuiteButton : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
+    [SerializeField] private AudioManager _audioManager;
+    
+    /// <summary>
+    /// 
+    /// </summary>
     [SerializeField] private Button _quiteButton;
     
     private void Start()
     {
         _quiteButton
             .OnClickAsObservable()
-            .Subscribe(_=>Quite())
+            .Subscribe(_=>
+            {
+                _audioManager.PlaySoundEffect(SoundEffectData.SoundEffect.Cancel);
+                Quite();
+            })
             .AddTo(this.gameObject);
     }
 
